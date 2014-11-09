@@ -1,0 +1,9 @@
+.angular-google-map-container, #shipwrecks {
+    width: 45%;
+    height: 400px;
+    float: left;
+}
+
+#shipwrecks {
+    padding-left: 15px;
+}
