@@ -38,16 +38,28 @@
 
         <div class="container googleMapContainer">
             <ui-gmap-google-map center="map.center" zoom="map.zoom">
-                <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" idkey="marker.id">
+                <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" idkey="marker.id"
+                                click="shipwreckCtrl.selectShipwreck(marker)">
                 </ui-gmap-marker>
             </ui-gmap-google-map>
         </div>
 
         <div id="shipwrecks" class="jumbotron">
-            <h1>Shipwrecks</h1>
-            <div ng-repeat="shipwreck in shipwreckCtrl.shipwrecks">
-                {{shipwreck.name}} at {{shipwreck.latitude}} (lat) / {{shipwreck.longitude}} (lon)
+            <div ng-hide="shipwreckCtrl.isShipwreckSelected()" class="noShipwreckSelected">
+                Click the markers on the map to show the details of a shipwreck.
             </div>
+            <div ng-show="shipwreckCtrl.isShipwreckSelected()">
+                <h1>{{shipwreckCtrl.selectedShipwreck.name}}</h1>
+                <div>
+                    Location: {{shipwreckCtrl.selectedShipwreck.latitude}} (lat) / {{shipwreckCtrl.selectedShipwreck.longitude}} (lon)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer well well-sm">
+        <div class="container">
+            <a href="https://github.com/lauriharpf/shipwrecks">GitHub</a>
         </div>
     </div>
 </body>

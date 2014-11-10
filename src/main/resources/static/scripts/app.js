@@ -13,13 +13,15 @@
     app.controller('ShipwreckController',
         ['$scope', 'GoogleMapApi'.ns(), '$http', function($scope, GoogleMapApi, $http) {
             var controller = this;
+            this.shipwrecks = [];
+            this.selectedShipwreck = null;
             $scope.markers = [];
 
             GoogleMapApi.then(function(maps) {
                 $scope.map = {
                     center: {
                         latitude: 63.45,
-                        longitude: 67.37
+                        longitude: 72.37
                     },
                     zoom: 2
                 };
@@ -32,11 +34,29 @@
                             {id: i,
                              coords: {latitude: data[i].latitude,
                                       longitude: data[i].longitude},
-                             options: {title: data[i].name }}
+                             options: {title: data[i].name,
+                                       labelContent: data[i].name }
+                            }
                         ));
                     }
                 });
-
             });
+
+            /**
+             * @returns {boolean} true if one of the shipwreck locations is selected,
+             *                    false if nothing has been selected (yet)
+             */
+            this.isShipwreckSelected = function() {
+                return this.selectedShipwreck != null;
+            };
+
+            /**
+             * Shows details of the shipwreck the user has clicked on.
+             *
+             * @param marker the Google Maps marker that was clicked
+             */
+            this.selectShipwreck = function(marker) {
+                this.selectedShipwreck = this.shipwrecks[marker.id];
+            };
     }]);
 })();
