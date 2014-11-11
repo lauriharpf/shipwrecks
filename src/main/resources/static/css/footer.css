@@ -1,0 +1,23 @@
+/* Styles for the sticky footer */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+.footer.well {
+    margin-bottom: 0;
+}

@@ -1,8 +1,25 @@
-.container.googleMapContainer, #shipwrecks {
+/* Styles that apply to the entire content area */
+#mainContainer {
+    width: 100%;
+    padding: 90px 0 0 0;
+}
+
+.body {
+    background: #f5f5f5 url("/images/Ships_on_a_rough_sea.jpg") no-repeat bottom;
+}
+
+/* Shared styles for the container with the map & the container
+   with the details about the selected shipwreck */
+.container.googleMapContainer,
+#shipwrecks {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    width: 49%;
     min-height: 400px;
     float: left;
 }
 
+/* Styles for the map area */
 .angular-google-map-container {
     height: 380px;
     width: 100%;
@@ -11,19 +28,14 @@
 .container.googleMapContainer {
     border: 10px solid #ffffff;
     box-shadow: 0 0 5px #cccccc;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
-    width: 49%;
     padding-left: 0;
     padding-right: 0;
 }
 
+/* Styles for the area that holds details about the selected shipwreck */
 #shipwrecks {
     padding-left: 15px;
     padding-right: 15px;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
-    width: 49%;
     background-color: rgb(248, 248, 248);
     box-shadow: 0 0 5px #cccccc;
     padding-top: 0;
@@ -35,51 +47,8 @@
     font-size: 45px;
 }
 
-#mainContainer {
-    width: 100%;
-    padding: 90px 0 0 0;
-}
-
-.body {
-    background: #f5f5f5 url("/images/Ships_on_a_rough_sea.jpg") no-repeat bottom;
-}
-
 .noShipwreckSelected {
     font-style: italic;
     text-align: center;
     line-height: 352px;
-}
-
-nav .container {
-    margin-left: 0;
-}
-
-a.navbar-brand {
-    text-shadow: 1px 1px 0 rgb(223, 227, 229), 2px 2px 0 rgba(0, 0, 0, 0.25);
-    font-size: 33px;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    font-size: 12px;
-    background-color: #f5f5f5;
-    text-align: center;
-}
-
-.footer.well {
-    margin-bottom: 0;
 }
