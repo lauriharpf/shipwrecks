@@ -52,7 +52,7 @@
                 Click the markers on the map to show the details of a shipwreck.
             </div>
             <div ng-show="shipwreckCtrl.isShipwreckSelected()">
-                <h1>{{shipwreckCtrl.selectedShipwreck.name}}</h1>
+                <h1><a href="{{shipwreckCtrl.selectedShipwreck.link}}">{{shipwreckCtrl.selectedShipwreck.name}}</a></h1>
                 <div>
                     Location: {{shipwreckCtrl.selectedShipwreck.latitude}} (lat) / {{shipwreckCtrl.selectedShipwreck.longitude}} (lon)
                 </div>

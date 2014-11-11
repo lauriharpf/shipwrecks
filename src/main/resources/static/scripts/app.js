@@ -56,6 +56,9 @@
              */
             this.selectShipwreck = function (marker) {
                 this.selectedShipwreck = this.shipwrecks[marker.id];
+                this.selectedShipwreck.link =
+                    "http://en.wikipedia.org/wiki/" +
+                    this.selectedShipwreck.name.replace(/ /g, '_');
             };
         }]);
 })();
