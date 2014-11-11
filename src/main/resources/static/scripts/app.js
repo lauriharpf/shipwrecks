@@ -11,7 +11,7 @@
     }]);
 
     app.controller('ShipwreckController',
-        ['$scope', 'GoogleMapApi'.ns(), '$http', function ($scope, GoogleMapApi, $http) {
+        ['$scope', 'GoogleMapApi'.ns(), '$http', '$sce', function ($scope, GoogleMapApi, $http, $sce) {
             var controller = this;
             this.shipwrecks = [];
             this.selectedShipwreck = null;
@@ -56,9 +56,21 @@
              */
             this.selectShipwreck = function (marker) {
                 this.selectedShipwreck = this.shipwrecks[marker.id];
+
+                var wikipediaPage = this.selectedShipwreck.name.replace(/ /g, '_');
                 this.selectedShipwreck.link =
-                    "http://en.wikipedia.org/wiki/" +
-                    this.selectedShipwreck.name.replace(/ /g, '_');
+                    "http://en.wikipedia.org/wiki/" + wikipediaPage;
+
+                // Fetch article content from Wikipedia
+                var wikipediaApiUrl =
+                    'http://en.wikipedia.org/w/api.php?action=parse&format=json&page=' +
+                    wikipediaPage + '&prop=text&callback=?';
+
+                $.getJSON(wikipediaApiUrl).done(function (data) {
+                    $scope.html = data.parse.text["*"];
+                    $scope.trustedHtml = $sce.trustAsHtml($scope.html);
+                    $scope.$apply();
+                });
             };
         }]);
 })();

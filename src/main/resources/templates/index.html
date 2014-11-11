@@ -53,8 +53,8 @@
             </div>
             <div ng-show="shipwreckCtrl.isShipwreckSelected()">
                 <h1><a href="{{shipwreckCtrl.selectedShipwreck.link}}">{{shipwreckCtrl.selectedShipwreck.name}}</a></h1>
-                <div>
-                    Location: {{shipwreckCtrl.selectedShipwreck.latitude}} (lat) / {{shipwreckCtrl.selectedShipwreck.longitude}} (lon)
+
+                <div ng-bind-html="trustedHtml">
                 </div>
             </div>
         </div>

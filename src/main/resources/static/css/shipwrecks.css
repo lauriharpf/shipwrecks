@@ -40,11 +40,18 @@
     box-shadow: 0 0 5px #cccccc;
     padding-top: 0;
     opacity: 0.9;
+    height: 400px;
+    overflow: auto;
 }
 
 #shipwrecks h1 {
     margin-top: 5px;
     font-size: 45px;
+}
+
+#shipwrecks.jumbotron p {
+    font-size: 14px;
+    font-weight: 100;
 }
 
 .noShipwreckSelected {
