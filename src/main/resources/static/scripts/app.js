@@ -59,18 +59,7 @@
 
                 var wikipediaPage = this.selectedShipwreck.name.replace(/ /g, '_');
                 this.selectedShipwreck.link =
-                    "http://en.wikipedia.org/wiki/" + wikipediaPage;
-
-                // Fetch article content from Wikipedia
-                var wikipediaApiUrl =
-                    'http://en.wikipedia.org/w/api.php?action=parse&format=json&page=' +
-                    wikipediaPage + '&prop=text&callback=?';
-
-                $.getJSON(wikipediaApiUrl).done(function (data) {
-                    $scope.html = data.parse.text["*"];
-                    $scope.trustedHtml = $sce.trustAsHtml($scope.html);
-                    $scope.$apply();
-                });
+                    $sce.trustAsResourceUrl("http://en.wikipedia.org/wiki/" + wikipediaPage + "?printable=yes");
             };
         }]);
 })();
