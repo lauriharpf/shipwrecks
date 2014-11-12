@@ -17,27 +17,17 @@ import java.util.List;
 
 @Service
 public class WikipediaShipwreckService implements ShipwreckService {
-    private static final String KMLEXPORT_URL_TEMPLATE =
-            "http://tools.wmflabs.org/kmlexport?article=%s";
 
-    @Cacheable(value = "shipwrecks", unless = "#result.isEmpty()")
     @Override
-    public List<Shipwreck> getShipwrecks() {
+    @Cacheable(value = "shipwrecks", unless = "#result.isEmpty()")
+    public List<Shipwreck> getShipwrecks(Area area) {
         try {
-            Content content = getShipwreckData();
+            Content content = Request.Get(area.getKmlURL()).execute().returnContent();
             return parseShipwreckData(content);
         } catch (IOException | JAXBException e) {
             // Something went wrong; return an empty list so the result isn't cached
             return Collections.emptyList();
         }
-    }
-
-
-    private Content getShipwreckData() throws IOException {
-        final String url =
-                String.format(KMLEXPORT_URL_TEMPLATE,
-                        "List_of_shipwrecks_of_Africa");
-        return Request.Get(url).execute().returnContent();
     }
 
     private List<Shipwreck> parseShipwreckData(Content shipwreckData) throws JAXBException {

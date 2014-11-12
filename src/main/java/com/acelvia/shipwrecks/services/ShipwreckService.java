@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ShipwreckService {
 
-    List<Shipwreck> getShipwrecks();
+    List<Shipwreck> getShipwrecks(Area area);
 }

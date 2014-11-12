@@ -20,8 +20,8 @@
             GoogleMapApi.then(function (maps) {
                 $scope.map = {
                     center: {
-                        latitude: 4.22,
-                        longitude: 18.35
+                        latitude: 43.13,
+                        longitude: 27.55
                     },
                     zoom: 2
                 };
