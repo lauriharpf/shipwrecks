@@ -1,4 +1,4 @@
-package com.acelvia.shipwrecks.wikipedia;
+package com.acelvia.shipwrecks.services.wikipedia;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

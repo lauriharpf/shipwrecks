@@ -1,4 +1,4 @@
-package com.acelvia.shipwrecks.wikipedia;
+package com.acelvia.shipwrecks.services.wikipedia;
 
 import org.apache.commons.lang3.StringUtils;
 
