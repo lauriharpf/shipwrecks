@@ -1,1 +1,1 @@
-web: java -jar target/*.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/shipwrecks*.jar
