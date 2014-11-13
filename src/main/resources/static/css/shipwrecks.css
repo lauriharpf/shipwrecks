@@ -10,7 +10,7 @@
 
 /* Shared styles for the container with the map & the container
    with the details about the selected shipwreck */
-.container.googleMapContainer,
+#googleMapContainer,
 #shipwrecks {
     margin-left: 0.5%;
     margin-right: 0.5%;
@@ -25,7 +25,7 @@
     width: 100%;
 }
 
-.container.googleMapContainer {
+#googleMapContainer {
     border: 10px solid #ffffff;
     box-shadow: 0 0 5px #cccccc;
     padding-left: 0;

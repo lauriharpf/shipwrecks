@@ -40,7 +40,7 @@
 
     <div class="container" id="mainContainer">
 
-        <div class="container googleMapContainer">
+        <div class="container" id="googleMapContainer">
             <ui-gmap-google-map center="map.center" zoom="map.zoom">
                 <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" idkey="marker.id"
                                 click="shipwreckCtrl.selectShipwreck(marker)">
