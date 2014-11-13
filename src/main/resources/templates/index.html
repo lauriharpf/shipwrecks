@@ -10,6 +10,7 @@
     <script type="text/javascript" src="/scripts/bluebird.js"></script>
     <script type="text/javascript" src="/scripts/angular-google-maps.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/spin.min.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css" />
@@ -52,7 +53,7 @@
                 Click the markers on the map to show the details of a shipwreck.
             </div>
             <div ng-show="shipwreckCtrl.isShipwreckSelected()">
-                <iframe class="wikipediaFrame" frameBorder="0" src="{{shipwreckCtrl.selectedShipwreck.link}}"></iframe>
+                <iframe id="wikipediaFrame" frameBorder="0" src="{{shipwreckCtrl.selectedShipwreck.link}}"></iframe>
             </div>
         </div>
     </div>
