@@ -1,7 +1,7 @@
 /* Styles that apply to the entire content area */
 #mainContainer {
     width: 100%;
-    padding: 75px 0 0 0;
+    padding: 65px 0 0 0;
 }
 
 .body {
@@ -15,21 +15,35 @@
     margin-left: 0.5%;
     margin-right: 0.5%;
     width: 49%;
-    min-height: 475px;
     float: left;
+    margin-bottom: 0;
 }
 
-/* Styles for the map area */
+#wikipediaFrame,
+#googleMapContainer,
+#shipwrecks,
 .angular-google-map-container {
-    height: 455px;
+    height: 75vh;
+}
+
+.angular-google-map-container,
+#wikipediaFrame {
     width: 100%;
 }
 
+/* Styles for the map area */
 #googleMapContainer {
     border: 10px solid #ffffff;
     box-shadow: 0 0 5px #cccccc;
     padding-left: 0;
     padding-right: 0;
+}
+
+/* Move the Google Map up a bit so it doesn't flow out of the containing div */
+.angular-google-map-container {
+    margin-top: -10px;
+    border-top: 10px solid #ffffff;
+    border-bottom: 10px solid #ffffff;
 }
 
 /* Styles for the area that holds details about the selected shipwreck */
@@ -40,7 +54,6 @@
     box-shadow: 0 0 5px #cccccc;
     padding-top: 0;
     opacity: 0.9;
-    height: 475px;
 }
 
 #shipwrecks h1 {
@@ -57,10 +70,4 @@
     font-style: italic;
     text-align: center;
     line-height: 352px;
-}
-
-/* The iframe (augh) which displays the Wikipedia article about the selected shipwreck */
-#wikipediaFrame {
-    width: 100%;
-    height: 475px;
 }
