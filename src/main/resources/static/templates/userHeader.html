@@ -1,2 +1,4 @@
-<span ng-show="auth.signedIn">Welcome {{ auth.userInfo.name }}!</span>
-<a href="#" class="btn btn-default" ng-click="clickHandler()">{{ buttonText }}</a>
+<ul class="nav navbar-nav navbar-right">
+    <li ng-show="auth.signedIn"><a href="" class="plaintext">Welcome {{ auth.userInfo.name }}!</a></li>
+    <li><button href="#" class="btn btn-default" ng-click="clickHandler()">{{ buttonText }}</button></li>
+</ul>

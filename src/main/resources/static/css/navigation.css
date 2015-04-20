@@ -7,3 +7,11 @@ a.navbar-brand {
     text-shadow: 1px 1px 0 rgb(223, 227, 229), 2px 2px 0 rgba(0, 0, 0, 0.25);
     font-size: 33px;
 }
+
+nav li > a.plaintext {
+  cursor: default;
+}
+
+nav li > button.btn {
+  margin: 8px;
+}

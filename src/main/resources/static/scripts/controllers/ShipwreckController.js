@@ -21,7 +21,8 @@
                     latitude: 43.13,
                     longitude: 27.55
                 },
-                zoom: 2
+                zoom: 3,
+                minZoom: 3
             };
 
             $http.get('/shipwrecks').success(function (data) {

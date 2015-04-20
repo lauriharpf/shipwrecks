@@ -5395,6 +5395,7 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
         Map.prototype.scope = {
           center: "=",
           zoom: "=",
+          minZoom: '=',
           dragging: "=",
           control: "=",
           options: "=",
@@ -5463,6 +5464,7 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
               mapOptions = angular.extend({}, DEFAULTS, opts, {
                 center: _this.getCoords(scope.center),
                 zoom: scope.zoom,
+                minZoom: scope.minZoom,
                 bounds: scope.bounds
               });
               _m = new google.maps.Map(el.find("div")[1], mapOptions);

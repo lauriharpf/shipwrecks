@@ -38,11 +38,7 @@
                 <a class="navbar-brand" href="#">Shipwrecks</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <user-header></user-header>
-                    </li>
-                </ul>
+                <user-header></user-header>
             </div>
         </div>
     </nav>
@@ -50,7 +46,7 @@
     <div class="container" id="mainContainer">
 
         <div class="container" id="googleMapContainer">
-            <ui-gmap-google-map center="map.center" zoom="map.zoom">
+            <ui-gmap-google-map center="map.center" zoom="map.zoom" min-zoom="map.minZoom">
                 <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" idkey="marker.id"
                                 click="shipwreckCtrl.selectShipwreck(marker)">
                 </ui-gmap-marker>
