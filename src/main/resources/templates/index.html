@@ -4,12 +4,16 @@
     <title>Shipwrecks Around the World</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
+    <!-- Google authentication -->
+    <script src="https://apis.google.com/js/platform.js"></script>
     <!-- Angular-Google-Maps dependencies -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/scripts/lodash.js"></script>
-    <script type="text/javascript" src="/scripts/bluebird.js"></script>
     <script type="text/javascript" src="/scripts/angular-google-maps.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/ShipwreckController.js"></script>
+    <script type="text/javascript" src="/scripts/services/AuthenticationService.js"></script>
+    <script type="text/javascript" src="/scripts/directives/userHeader.js"></script>
     <script type="text/javascript" src="/scripts/spin.min.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
@@ -23,7 +27,7 @@
 <body ng-controller="ShipwreckController as shipwreckCtrl" class="body">
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
@@ -34,6 +38,11 @@
                 <a class="navbar-brand" href="#">Shipwrecks</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <user-header></user-header>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
