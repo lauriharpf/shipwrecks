@@ -101,7 +101,7 @@
                 if(!this.spinner) this.spinner = this.startAjaxSpinner("shipwrecks", "75%");
                 else this.spinner.spin(document.getElementById("shipwrecks"));
 
-                var newShipwreckLink = $sce.trustAsResourceUrl("http://en.wikipedia.org/wiki/" + wikipediaPage + "?printable=yes");
+                var newShipwreckLink = $sce.trustAsResourceUrl("https://en.wikipedia.org/wiki/" + wikipediaPage + "?printable=yes");
 
                 this.selectedShipwreck.link = newShipwreckLink;
                 this.selectedShipwreck.wikipediaPage = wikipediaPage;
