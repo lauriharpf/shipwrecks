@@ -1,22 +1,24 @@
 (function() {
     angular
         .module('app')
-        .controller('ShipwreckController', ['$scope', 'GoogleMapApi'.ns(), '$http', '$sce', ShipwreckController]);
+        .controller('ShipwreckController', ['$scope', 'GoogleMapApi'.ns(), '$http', '$sce', 'authenticationService', ShipwreckController]);
 
-    function ShipwreckController($scope, GoogleMapApi, $http, $sce) {
+    function ShipwreckController($scope, GoogleMapApi, $http, $sce, authenticationService) {
         var vm = this;
         vm.startAjaxSpinner = startAjaxSpinner;
         vm.shipwrecks = [];
         vm.selectedShipwreck = null;
         vm.selectShipwreck = selectShipwreck;
         vm.isShipwreckSelected = isShipwreckSelected;
+        vm.favouriteShipwreck = favouriteShipwreck;
+        vm.auth = authenticationService;
 
-        $scope.markers = [];
+        vm.markers = [];
 
         GoogleMapApi.then(function (maps) {
             vm.mapSpinner = vm.startAjaxSpinner("googleMapContainer", "25%");
 
-            $scope.map = {
+            vm.map = {
                 center: {
                     latitude: 43.13,
                     longitude: 27.55
@@ -29,13 +31,21 @@
                 vm.shipwrecks = data;
 
                 for (var i = 0; i < data.length; i++) {
-                    $scope.markers.push((
-                    {id: i,
-                        coords: {latitude: data[i].latitude,
-                            longitude: data[i].longitude},
-                        options: {title: data[i].name }
-                    }
-                        ));
+                        
+                    vm.markers.push((
+                        {
+                            id: i,
+                            coords: {
+                                latitude: data[i].latitude,
+                                longitude: data[i].longitude
+                            },
+                            options: {
+                                title: data[i].name,
+                                favourite: data[i].favourite
+                            },
+                            icon: getMarkerIcon(data[i].favourite)
+                        }
+                    ));
                 }
 
                 vm.mapSpinner.stop();
@@ -96,6 +106,48 @@
                 this.selectedShipwreck.link = newShipwreckLink;
                 this.selectedShipwreck.wikipediaPage = wikipediaPage;
             }
+        }
+
+        function favouriteShipwreck() {
+            if(!this.selectedShipwreck) return;
+
+            var sw = this.selectedShipwreck;
+            var id = this.shipwrecks.indexOf(sw);
+            var marker = this.markers[id];
+
+            if(sw.favourite) {
+                $http.delete('/favourites/'+sw.favouriteId).success(function(data) {
+                    sw.favourite = false;
+                    marker.icon = getMarkerIcon(false);
+                });
+            } else {
+                $http({
+                    method: 'POST',
+                    url: '/favourites',
+                    data: "name="+sw.name+"&latitude="+sw.latitude+"&longitude="+sw.longitude,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(data) {
+                    sw.favourite = data.favourite;
+                    sw.favouriteId = data.favouriteId;
+                    marker.icon = getMarkerIcon(data.favourite);
+                });
+            }
+            
+        }
+
+        function getMarkerIcon(favourite) {
+            return {
+                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                scale: 5,
+                strokeWeight: 1,
+                fillColor: getColor(favourite),
+                fillOpacity: 1
+            }
+        }
+                    
+        function getColor(favourite) {
+            if(favourite) return 'orange'
+            else return 'white'
         }
     }
 })();

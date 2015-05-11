@@ -1,6 +1,7 @@
 /* Styles that apply to the entire content area */
 #mainContainer {
     width: 100%;
+    height: 100%;
     padding: 65px 0 0 0;
 }
 
@@ -13,17 +14,18 @@
 #googleMapContainer,
 #shipwrecks {
     margin-left: 0.5%;
-    margin-right: 0.5%;
     width: 49%;
-    float: left;
+    display: inline-block;
+    vertical-align: top;
     margin-bottom: 0;
+    height: 100%;
 }
 
 #wikipediaFrame,
-#googleMapContainer,
-#shipwrecks,
-.angular-google-map-container {
-    height: 75vh;
+.angular-google-map-container, 
+.angular-google-map,
+.wikipedia-frame-container {
+    height: 100%;
 }
 
 .angular-google-map-container,
@@ -39,9 +41,7 @@
     padding-right: 0;
 }
 
-/* Move the Google Map up a bit so it doesn't flow out of the containing div */
 .angular-google-map-container {
-    margin-top: -10px;
     border-top: 10px solid #ffffff;
     border-bottom: 10px solid #ffffff;
 }

@@ -5,54 +5,50 @@
 (function() {
     angular
         .module('app')
-        .factory('authenticationService', ['$rootScope', AuthenticationService]);
+        .factory('authenticationService', ['$rootScope', '$http', '$window', AuthenticationService]);
 
-    function AuthenticationService($rootScope) {
+    function AuthenticationService($rootScope, $http, $window) {
+        if (typeof location.origin === 'undefined')
+            location.origin = location.protocol + '//' + location.host;
+
         var service = {
             signedIn: false,
-            userInfo: {},
             signIn: SignIn,
-            signOut: SignOut
+            signOut: SignOut,
+            config: {
+                endPoint: 'https://accounts.google.com/o/oauth2/auth',
+                clientId: '487816782475-nscq0o4e70nrcvbq6iappn11mr5ml0ka.apps.googleusercontent.com',
+                responseType: 'code',
+                scope: 'openid profile',
+                redirectUri: location.origin+'/oauth2callback'
+            },
+            getAuthUrl: getAuthUrl
         };
 
-        // configure the authentication
-        gapi.load('auth2', function() {
-            auth2 = gapi.auth2.init({
-                client_id: '487816782475-nscq0o4e70nrcvbq6iappn11mr5ml0ka.apps.googleusercontent.com',
-                fetch_basic_profile: true,
-                scope: 'profile'
-            });
-
-            auth2.isSignedIn.listen(function(val) {
-                if(val) {
-                    service.signIn();
-                } else {
-                    service.signOut();
-                }
-            });
+        $http.get('/state').success(function(data) {
+            service.config.state = data.state;
+            service.signedIn = data.signedIn;
         });
 
         return service;
 
         function SignIn() {
-            var profile = auth2.currentUser.get().getBasicProfile();
-
-            service.signedIn = true;
-            service.userInfo = {
-                id: profile.getId(),
-                name: profile.getName(),
-                imageUrl: profile.getImageUrl(),
-                email: profile.getEmail()
-            };
-
-            $rootScope.$broadcast('user:statusChange',true);
+            $window.location.href = service.getAuthUrl();
         }
 
         function SignOut() {
-            service.signedIn = false;
-            service.userInfo = {};
+            $window.location.href = '/logout';
+        }
 
-            $rootScope.$broadcast('user:statusChange',false);
+        function getAuthUrl() {
+            var url = service.config.endPoint;
+            url += '?client_id='+service.config.clientId;
+            url += '&response_type='+service.config.responseType;
+            url += '&scope='+service.config.scope;
+            url += '&redirect_uri='+service.config.redirectUri;
+            url += '&state='+service.config.state;
+
+            return url;
         }
     }
 })();

@@ -1,11 +1,14 @@
 package com.acelvia.shipwrecks;
 
+import com.acelvia.shipwrecks.models.Favourite;
+import com.acelvia.shipwrecks.models.User;
 import com.acelvia.shipwrecks.services.Area;
 import com.acelvia.shipwrecks.services.ShipwreckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,11 +22,25 @@ public class ShipwreckController {
     private ShipwreckService shipwreckService;
 
     @RequestMapping("/shipwrecks")
-    public List<Shipwreck> shipwrecks() throws IOException, JAXBException {
+    public List<Shipwreck> shipwrecks(
+            HttpServletRequest request
+    ) throws IOException, JAXBException {
         List<Shipwreck> allShipwrecks = new ArrayList<>();
 
         Arrays.asList(Area.values()).forEach(
                 e -> allShipwrecks.addAll(shipwreckService.getShipwrecks(e)));
+
+        User currentUser = (User) request.getSession().getAttribute("user");
+        if(currentUser != null) {
+            List<Favourite> favs = currentUser.getFavourites();
+            for(Favourite f : favs) {
+                int index = allShipwrecks.indexOf(f.getShipwreck());
+                if(index >= 0) {
+                    allShipwrecks.get(index).setFavourite(true);
+                    allShipwrecks.get(index).setFavouriteId(f.getId());
+                }
+            }
+        }
 
         return allShipwrecks;
     }

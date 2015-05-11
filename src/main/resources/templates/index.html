@@ -4,8 +4,6 @@
     <title>Shipwrecks Around the World</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
-    <!-- Google authentication -->
-    <script src="https://apis.google.com/js/platform.js"></script>
     <!-- Angular-Google-Maps dependencies -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/scripts/lodash.js"></script>
@@ -46,8 +44,8 @@
     <div class="container" id="mainContainer">
 
         <div class="container" id="googleMapContainer">
-            <ui-gmap-google-map center="map.center" zoom="map.zoom" min-zoom="map.minZoom">
-                <ui-gmap-marker ng-repeat="marker in markers" coords="marker.coords" options="marker.options" idkey="marker.id"
+            <ui-gmap-google-map center="shipwreckCtrl.map.center" zoom="shipwreckCtrl.map.zoom" min-zoom="shipwreckCtrl.map.minZoom">
+                <ui-gmap-marker ng-repeat="marker in shipwreckCtrl.markers" coords="marker.coords" options="marker.options" idkey="marker.id" icon="marker.icon"
                                 click="shipwreckCtrl.selectShipwreck(marker)">
                 </ui-gmap-marker>
             </ui-gmap-google-map>
@@ -57,7 +55,11 @@
             <div ng-hide="shipwreckCtrl.isShipwreckSelected()" class="noShipwreckSelected">
                 Click the markers on the map to show the details of a shipwreck.
             </div>
-            <div ng-show="shipwreckCtrl.isShipwreckSelected()">
+            <div ng-show="shipwreckCtrl.isShipwreckSelected()" class="wikipedia-frame-container">
+                <button ng-click="shipwreckCtrl.favouriteShipwreck()" ng-show="shipwreckCtrl.auth.signedIn">
+                    <img src="/images/black_star.svg" ng-hide="shipwreckCtrl.selectedShipwreck.favourite" />
+                    <img src="/images/yellow_star.svg" ng-show="shipwreckCtrl.selectedShipwreck.favourite" />
+                </button>
                 <iframe id="wikipediaFrame" frameBorder="0" src="{{shipwreckCtrl.selectedShipwreck.link}}"></iframe>
             </div>
         </div>
