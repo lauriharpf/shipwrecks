@@ -108,6 +108,9 @@
             }
         }
 
+        /**
+         * Toggles the favourite status for the selected marker
+         */
         function favouriteShipwreck() {
             if(!this.selectedShipwreck) return;
 
