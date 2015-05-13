@@ -8,6 +8,8 @@ import com.acelvia.shipwrecks.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import jdk.nashorn.internal.ir.RuntimeNode;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 @RestController
 public class UserController {
 
+    private static final Log log = LogFactory.getLog(AuthController.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -36,6 +40,9 @@ public class UserController {
         HttpSession session = request.getSession();
 
         String state = (String) session.getAttribute("state");
+
+        log.info("-----------------------------------------");
+        log.info("State: "+state);
         if(session.getAttribute("state") == null) {
             state = new BigInteger(130, new SecureRandom()).toString(32);
             request.getSession().setAttribute("state", state);
@@ -47,8 +54,10 @@ public class UserController {
         o.put("state", state);
 
         if(session.getAttribute("user") != null) {
+            log.info("User found in session!");
             o.put("signedIn", true);
         } else {
+            log.info("User not found in session!");
             o.put("signedIn", false);
         }
 

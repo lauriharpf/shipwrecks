@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 @Controller
 public class AuthController {
 
+    private static final Log log = LogFactory.getLog(AuthController.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -34,12 +38,15 @@ public class AuthController {
             HttpServletRequest request,
             HttpServletResponse response
     ) {
-
+        log.info("-------------------------------------------");
+        log.info("Session state:");
+        log.info(request.getSession().getAttribute("state"));
         // Ensure that there is no request forgery going on, and that the user
         // sending us this connect request is the user that was supposed to.
         if (!request.getParameter("state").equals(
                 request.getSession().getAttribute("state"))) {
             response.setStatus(401);
+            log.error("NO STATE PARAMETER IN REQUEST!");
             return "redirect:/";
         }
 
@@ -58,6 +65,8 @@ public class AuthController {
             // Execute the request to google and get response as a string
             String content = Request.Post("https://www.googleapis.com/oauth2/v3/token")
                                     .bodyForm(parameters).execute().returnContent().asString();
+
+            log.info("Executed request to google auth.");
 
             // Parse the response
             ObjectMapper mapper = new ObjectMapper();
@@ -83,17 +92,25 @@ public class AuthController {
                 userEmail = idTokenObject.get("email").textValue();
             }
 
+            log.info("Parsed Google token.");
+
             // Search for the user and add it
             User u = userRepository.findByGoogleId(userGoogleId);
             if(u == null) {
+                log.info("User not found.");
                 u = new User(userGoogleId, userEmail);
             } else {
+                log.info("User found.");
                 u.setEmail(userEmail);
             }
             userRepository.save(u);
 
+            log.info("User saved.");
+
             // Add user to session
             request.getSession().setAttribute("user", u);
+
+            log.info("User added to session.");
         } catch (IOException e) {
             e.printStackTrace();
         }
