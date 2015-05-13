@@ -51,6 +51,7 @@ public class AuthController {
         }
 
         String code = request.getParameter("code");
+        log.info("Code: "+code);
         String grant_type = "authorization_code";
 
         // Build request to get user token
@@ -59,7 +60,14 @@ public class AuthController {
         parameters.add(new BasicNameValuePair("client_id", settings.getGoogleId()));
         parameters.add(new BasicNameValuePair("client_secret", settings.getGoogleSecret()));
         parameters.add(new BasicNameValuePair("redirect_uri", settings.getGoogleCallbackUri()));
+
+        log.info("client_id: "+settings.getGoogleId());
+        log.info("client_secret: "+settings.getGoogleSecret());
+        log.info("redirect_uri: "+settings.getGoogleCallbackUri());
+
         parameters.add(new BasicNameValuePair("grant_type", grant_type));
+
+        log.info(parameters);
 
         try {
             // Execute the request to google and get response as a string
