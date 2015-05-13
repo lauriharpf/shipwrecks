@@ -8,6 +8,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/scripts/lodash.js"></script>
     <script type="text/javascript" src="/scripts/angular-google-maps.js"></script>
+    <!-- Application -->
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/controllers/ShipwreckController.js"></script>
     <script type="text/javascript" src="/scripts/services/AuthenticationService.js"></script>
@@ -42,24 +43,24 @@
     </nav>
 
     <div class="container" id="mainContainer">
-
-        <div class="container" id="googleMapContainer">
+        <div class="shipwreck-controls">
+            <button ng-click="shipwreckCtrl.favouriteShipwreck()" ng-show="shipwreckCtrl.canShowShipwreckControls()">
+                <img src="/images/black_star.svg" ng-hide="shipwreckCtrl.selectedShipwreck.favourite" />
+                <img src="/images/yellow_star.svg" ng-show="shipwreckCtrl.selectedShipwreck.favourite" />
+            </button>
+        </div>
+        <div id="googleMapContainer">
             <ui-gmap-google-map center="shipwreckCtrl.map.center" zoom="shipwreckCtrl.map.zoom" min-zoom="shipwreckCtrl.map.minZoom">
                 <ui-gmap-marker ng-repeat="marker in shipwreckCtrl.markers" coords="marker.coords" options="marker.options" idkey="marker.id" icon="marker.icon"
                                 click="shipwreckCtrl.selectShipwreck(marker)">
                 </ui-gmap-marker>
             </ui-gmap-google-map>
         </div>
-
-        <div id="shipwrecks" class="jumbotron">
+        <div id="shipwrecks">
             <div ng-hide="shipwreckCtrl.isShipwreckSelected()" class="noShipwreckSelected">
                 Click the markers on the map to show the details of a shipwreck.
             </div>
             <div ng-show="shipwreckCtrl.isShipwreckSelected()" class="wikipedia-frame-container">
-                <button ng-click="shipwreckCtrl.favouriteShipwreck()" ng-show="shipwreckCtrl.auth.signedIn">
-                    <img src="/images/black_star.svg" ng-hide="shipwreckCtrl.selectedShipwreck.favourite" />
-                    <img src="/images/yellow_star.svg" ng-show="shipwreckCtrl.selectedShipwreck.favourite" />
-                </button>
                 <iframe id="wikipediaFrame" frameBorder="0" src="{{shipwreckCtrl.selectedShipwreck.link}}"></iframe>
             </div>
         </div>

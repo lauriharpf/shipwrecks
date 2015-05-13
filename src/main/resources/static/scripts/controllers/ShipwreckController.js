@@ -12,6 +12,7 @@
         vm.isShipwreckSelected = isShipwreckSelected;
         vm.favouriteShipwreck = favouriteShipwreck;
         vm.auth = authenticationService;
+        vm.canShowShipwreckControls = canShowShipwreckControls;
 
         vm.markers = [];
 
@@ -151,6 +152,10 @@
         function getColor(favourite) {
             if(favourite) return 'orange'
             else return 'white'
+        }
+
+        function canShowShipwreckControls() {
+            return this.isShipwreckSelected() && this.auth.signedIn;
         }
     }
 })();

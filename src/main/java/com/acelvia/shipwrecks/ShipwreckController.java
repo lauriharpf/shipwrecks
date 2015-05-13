@@ -25,7 +25,8 @@ public class ShipwreckController {
     public List<Shipwreck> shipwrecks(
             HttpServletRequest request
     ) throws IOException, JAXBException {
-        List<Shipwreck> allShipwrecks = new ArrayList<>();
+        List<Shipwreck> allShipwrecks = new
+                ArrayList<>();
 
         Arrays.asList(Area.values()).forEach(
                 e -> allShipwrecks.addAll(shipwreckService.getShipwrecks(e)));
