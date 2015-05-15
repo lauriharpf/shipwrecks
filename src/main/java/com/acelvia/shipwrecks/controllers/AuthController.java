@@ -51,7 +51,6 @@ public class AuthController {
         }
 
         String code = request.getParameter("code");
-        log.info("Code: "+code);
         String grant_type = "authorization_code";
 
         // Build request to get user token
@@ -60,19 +59,21 @@ public class AuthController {
         parameters.add(new BasicNameValuePair("client_id", settings.getGoogleId()));
         parameters.add(new BasicNameValuePair("client_secret", settings.getGoogleSecret()));
         parameters.add(new BasicNameValuePair("redirect_uri", settings.getGoogleCallbackUri()));
+        parameters.add(new BasicNameValuePair("grant_type", grant_type));
 
+        log.info("Code: "+code);
         log.info("client_id: "+settings.getGoogleId());
         log.info("client_secret: "+settings.getGoogleSecret());
         log.info("redirect_uri: "+settings.getGoogleCallbackUri());
 
-        parameters.add(new BasicNameValuePair("grant_type", grant_type));
-
-        log.info(parameters);
 
         try {
             // Execute the request to google and get response as a string
             String content = Request.Post("https://www.googleapis.com/oauth2/v3/token")
-                                    .bodyForm(parameters).execute().returnContent().asString();
+                .addHeader("Content-Type","application/x-www-form-urlencoded")
+                .bodyForm(parameters)
+                .execute()
+                .returnContent().asString();
 
             log.info("Executed request to google auth.");
 
