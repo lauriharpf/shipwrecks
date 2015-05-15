@@ -38,9 +38,6 @@ public class AuthController {
             HttpServletRequest request,
             HttpServletResponse response
     ) {
-        log.info("-------------------------------------------");
-        log.info("Session state:");
-        log.info(request.getSession().getAttribute("state"));
         // Ensure that there is no request forgery going on, and that the user
         // sending us this connect request is the user that was supposed to.
         if (!request.getParameter("state").equals(
@@ -61,10 +58,6 @@ public class AuthController {
         parameters.add(new BasicNameValuePair("redirect_uri", settings.getGoogleCallbackUri()));
         parameters.add(new BasicNameValuePair("grant_type", grant_type));
 
-        log.info("Code: "+code);
-        log.info("client_id: "+settings.getGoogleId());
-        log.info("client_secret: "+settings.getGoogleSecret());
-        log.info("redirect_uri: "+settings.getGoogleCallbackUri());
 
 
         try {
