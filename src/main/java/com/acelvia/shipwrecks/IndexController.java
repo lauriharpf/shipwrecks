@@ -23,16 +23,11 @@ public class IndexController {
         HttpSession session = request.getSession();
         String state = (String) session.getAttribute("state");
 
-        log.info("==========================================");
-        log.info("Before State: "+state);
-
         if(session.getAttribute("state") == null) {
             state = new BigInteger(130, new SecureRandom()).toString(32);
             session.setAttribute("state", state);
         }
 
-        log.info("After State: "+state);
-        log.info("==========================================");
 
         return "index";
     }
