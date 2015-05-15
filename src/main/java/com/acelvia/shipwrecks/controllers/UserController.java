@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 public class UserController {
 
-    private static final Log log = LogFactory.getLog(AuthController.class);
+    private static final Log log = LogFactory.getLog(UserController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -38,14 +38,14 @@ public class UserController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession();
-
         String state = (String) session.getAttribute("state");
 
         log.info("-----------------------------------------");
         log.info("State: "+state);
+
         if(session.getAttribute("state") == null) {
             state = new BigInteger(130, new SecureRandom()).toString(32);
-            request.getSession().setAttribute("state", state);
+            session.setAttribute("state", state);
         }
 
         ObjectMapper mapper = new ObjectMapper();
@@ -60,6 +60,7 @@ public class UserController {
             log.info("User not found in session!");
             o.put("signedIn", false);
         }
+        log.info("-----------------------------------------");
 
         return o;
     }
