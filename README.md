@@ -5,7 +5,7 @@ Shipwrecks
 
 ### Setup
 
-1. Install Java 8 JDK
+1. Install Java 11 JDK
 1. Install IntelliJ IDEA
 1. Install Docker
 1. Run `docker pull mongo` from command line
@@ -15,7 +15,7 @@ Shipwrecks
     * Working directory: _(Project folder)_
     * Command line: `spring-boot:run -Dspring-boot.run.fork=false`
     * In the `Runner` tab of the configuration, change `Environment variables` to `DATABASE_URL=mongodb://localhost:27017/test;GOOGLE_ID="";GOOGLE_CALLBACK_URI="";GOOGLE_SECRET=""` 
-1. Open _File -> Project structure_. Ensure _Project SDK_ is set to _1.8_ and _Project language level_ is _8_.
+1. Open _File -> Project structure_. Ensure _Project SDK_ and _Project language level_ are set to _11_.
 
 ### Running
 1. Run `docker start some-mongo` from command line if MongoDB container isn't already started
