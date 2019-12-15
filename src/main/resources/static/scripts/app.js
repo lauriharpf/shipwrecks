@@ -5,7 +5,7 @@
     app.config(['GoogleMapApiProvider'.ns(), function (GoogleMapApi) {
         GoogleMapApi.configure({
             key: 'AIzaSyDWOU36_aLESVSSCFsrk4WdH9Q1mXdamgo',
-            v: '3.17',
+            v: 'weekly',
             libraries: 'weather,geometry,visualization'
         });
     }]);
