@@ -118,8 +118,8 @@
             var sw = this.selectedShipwreck;
             var id = this.shipwrecks.indexOf(sw);
             var marker = this.markers[id];
-            var csrfHeader = $("meta[name='_csrf']").attr("content");
-            var csrfToken = $("meta[name='_csrf_header']").attr("content");
+            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+            var csrfToken = $("meta[name='_csrf']").attr("content");
 
             if(sw.favourite) {
                 $http({
