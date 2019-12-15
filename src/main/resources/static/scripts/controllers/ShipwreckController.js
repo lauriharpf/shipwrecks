@@ -118,9 +118,15 @@
             var sw = this.selectedShipwreck;
             var id = this.shipwrecks.indexOf(sw);
             var marker = this.markers[id];
+            var csrfHeader = $("meta[name='_csrf']").attr("content");
+            var csrfToken = $("meta[name='_csrf_header']").attr("content");
 
             if(sw.favourite) {
-                $http.delete('/favourites/'+sw.favouriteId).success(function(data) {
+                $http({
+                 method: 'DELETE',
+                 url: '/favourites'+sw.favouriteId,
+                 headers: { [csrfHeader]: csrfToken }
+                }).success(function(data) {
                     sw.favourite = false;
                     marker.icon = getMarkerIcon(false);
                 });
@@ -129,7 +135,10 @@
                     method: 'POST',
                     url: '/favourites',
                     data: "name="+sw.name+"&latitude="+sw.latitude+"&longitude="+sw.longitude,
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      [csrfHeader]: csrfToken
+                    }
                 }).success(function(data) {
                     sw.favourite = data.favourite;
                     sw.favouriteId = data.favouriteId;

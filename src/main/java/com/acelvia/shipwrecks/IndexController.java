@@ -1,8 +1,5 @@
 package com.acelvia.shipwrecks;
 
-import com.acelvia.shipwrecks.controllers.AuthController;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,20 +11,15 @@ import java.security.SecureRandom;
 @Controller
 public class IndexController {
 
-    private static final Log log = LogFactory.getLog(IndexController.class);
-
     @RequestMapping("/")
     @SuppressWarnings("unused")
-    public String index(
-            HttpServletRequest request) {
+    public String index(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String state = (String) session.getAttribute("state");
 
-        if(session.getAttribute("state") == null) {
-            state = new BigInteger(130, new SecureRandom()).toString(32);
+        if (session.getAttribute("state") == null) {
+            String state = new BigInteger(130, new SecureRandom()).toString(32);
             session.setAttribute("state", state);
         }
-
 
         return "index";
     }

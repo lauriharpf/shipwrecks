@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
-<html ng-app="app">
+<html ng-app="app" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Shipwrecks Around the World</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
     <!-- Angular-Google-Maps dependencies -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,21 +20,17 @@ public class ShipwreckController {
     private ShipwreckService shipwreckService;
 
     @RequestMapping("/shipwrecks")
-    public List<Shipwreck> shipwrecks(
-            HttpServletRequest request
-    ) throws IOException, JAXBException {
-        List<Shipwreck> allShipwrecks = new
-                ArrayList<>();
+    public List<Shipwreck> shipwrecks(HttpServletRequest request) {
+        List<Shipwreck> allShipwrecks = new ArrayList<>();
 
-        Arrays.asList(Area.values()).forEach(
-                e -> allShipwrecks.addAll(shipwreckService.getShipwrecks(e)));
+        Arrays.asList(Area.values()).forEach(e -> allShipwrecks.addAll(shipwreckService.getShipwrecks(e)));
 
         User currentUser = (User) request.getSession().getAttribute("user");
-        if(currentUser != null) {
+        if (currentUser != null) {
             List<Favourite> favs = currentUser.getFavourites();
-            for(Favourite f : favs) {
+            for (Favourite f : favs) {
                 int index = allShipwrecks.indexOf(f.getShipwreck());
-                if(index >= 0) {
+                if (index >= 0) {
                     allShipwrecks.get(index).setFavourite(true);
                     allShipwrecks.get(index).setFavouriteId(f.getId());
                 }
@@ -45,5 +39,4 @@ public class ShipwreckController {
 
         return allShipwrecks;
     }
-
 }
