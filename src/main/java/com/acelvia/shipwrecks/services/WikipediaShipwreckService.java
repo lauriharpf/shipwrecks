@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,18 +24,18 @@ public class WikipediaShipwreckService implements ShipwreckService {
     public List<Shipwreck> getShipwrecks(Area area) {
         try {
             Content content = Request.Get(area.getKmlURL()).execute().returnContent();
-            return parseShipwreckData(content);
+            return parseShipwreckData(content.asStream());
         } catch (IOException | JAXBException e) {
             // Something went wrong; return an empty list so the result isn't cached
             return Collections.emptyList();
         }
     }
 
-    private List<Shipwreck> parseShipwreckData(Content shipwreckData) throws JAXBException {
+    protected List<Shipwreck> parseShipwreckData(InputStream shipwreckData) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(Kml.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-        Kml kml = ((Kml) unmarshaller.unmarshal(shipwreckData.asStream()));
+        Kml kml = ((Kml) unmarshaller.unmarshal(shipwreckData));
         Document document = kml.getDocument();
 
         List<Shipwreck> shipwrecks = new ArrayList<>();

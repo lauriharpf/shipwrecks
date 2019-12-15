@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "kml", namespace = "http://earth.google.com/kml/2.1")
+@XmlRootElement(name = "kml")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Kml {
 

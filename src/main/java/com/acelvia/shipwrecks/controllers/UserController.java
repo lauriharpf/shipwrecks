@@ -7,7 +7,6 @@ import com.acelvia.shipwrecks.repositories.FavouriteRepository;
 import com.acelvia.shipwrecks.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -115,19 +113,19 @@ public class UserController {
             @PathVariable("id") String id
     ) {
         User currentUser = (User) request.getSession().getAttribute("user");
-        if(currentUser == null) {
+        if (currentUser == null) {
             response.setStatus(401);
             return;
         }
 
-        Favourite favourite = favouriteRepository.findById(id);
-        if(favourite == null) {
+        Optional<Favourite> favourite = favouriteRepository.findById(id);
+        if (!favourite.isPresent()) {
             response.setStatus(404);
             return;
         }
 
-        currentUser.removeFavourite(favourite);
+        currentUser.removeFavourite(favourite.get());
         userRepository.save(currentUser);
-        favouriteRepository.delete(favourite);
+        favouriteRepository.delete(favourite.get());
     }
 }
