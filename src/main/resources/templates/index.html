@@ -52,10 +52,12 @@
             </button>
         </div>
         <div id="googleMapContainer">
-            <ui-gmap-google-map center="shipwreckCtrl.map.center" zoom="shipwreckCtrl.map.zoom" min-zoom="shipwreckCtrl.map.minZoom">
-                <ui-gmap-marker ng-repeat="marker in shipwreckCtrl.markers" coords="marker.coords" options="marker.options" idkey="marker.id" icon="marker.icon"
-                                click="shipwreckCtrl.selectShipwreck(marker)">
-                </ui-gmap-marker>
+            <ui-gmap-google-map center="shipwreckCtrl.map.center" min-zoom="shipwreckCtrl.map.minZoom"
+                                zoom="shipwreckCtrl.map.zoom">
+                <ui-gmap-markers clusterOptions="shipwreckCtrl.clusterOptions" coords="'coords'"
+                                 doCluster="true" events="shipwreckCtrl.markerEvents" icon="'icon'" idkey="'id'"
+                                 models="shipwreckCtrl.markers" options="'options'">
+                </ui-gmap-markers>
             </ui-gmap-google-map>
         </div>
         <div id="shipwrecks">

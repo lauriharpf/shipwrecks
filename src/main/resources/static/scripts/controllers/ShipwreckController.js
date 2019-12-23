@@ -14,6 +14,19 @@
         vm.auth = authenticationService;
         vm.canShowShipwreckControls = canShowShipwreckControls;
 
+        vm.clusterOptions = {
+            gridSize: 90,
+            ignoreHidden: true,
+            minimumClusterSize: 5,
+            imageExtension: 'png',
+            imagePath: 'images/markerclusterer/m',
+            imageSizes: [72]
+        };
+        vm.markerEvents = {
+          click: function(marker, eventName, model, arguments) {
+            vm.selectShipwreck(model);
+          }
+        }
         vm.markers = [];
 
         GoogleMapApi.then(function (maps) {

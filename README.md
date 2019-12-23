@@ -22,5 +22,7 @@ Shipwrecks
 1. Run project via IntelliJ with the created configuration
 1. Open `http://localhost:8080/` in your browser
 
+No hot reloading: Restart the app after **any** changes to frontend or backend.
+
 ### Deployment
 Shipwrecks is hosted at Heroku ( https://shipwrecks.herokuapp.com/ ). Pushing to `master` triggers Heroku to deploy a new version.
