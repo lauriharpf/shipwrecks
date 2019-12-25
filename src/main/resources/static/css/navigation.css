@@ -19,3 +19,7 @@ nav li > a.plaintext {
 nav li > button.btn {
   margin: 8px;
 }
+
+.navbar .github {
+  font-size: 12px;
+}

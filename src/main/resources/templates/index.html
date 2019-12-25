@@ -22,7 +22,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <!-- Stylesheets for the site -->
     <link rel="stylesheet" href="/css/shipwrecks.css"/>
-    <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/navigation.css"/>
 </head>
 <body ng-controller="ShipwreckController as shipwreckCtrl" class="body">
@@ -39,6 +38,9 @@
                 <a class="navbar-brand" href="#">Shipwrecks</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a class="github" href="https://github.com/lauriharpf/shipwrecks">GitHub</a></li>
+                </ul>
                 <user-header></user-header>
             </div>
         </div>
@@ -67,12 +69,6 @@
             <div ng-show="shipwreckCtrl.isShipwreckSelected()" class="wikipedia-frame-container">
                 <iframe id="wikipediaFrame" frameBorder="0" src="{{shipwreckCtrl.selectedShipwreck.link}}"></iframe>
             </div>
-        </div>
-    </div>
-
-    <div class="footer well well-sm">
-        <div class="container">
-            <a href="https://github.com/lauriharpf/shipwrecks">GitHub</a>
         </div>
     </div>
 </body>

@@ -1,5 +1,11 @@
 /* Styles that apply to the entire content area */
+html {
+    position: relative;
+    height: 100%;
+}
+
 .body {
+    height: 100%;
     background: #f5f5f5 url("/images/Ships_on_a_rough_sea.jpg") no-repeat bottom;
 }
 
