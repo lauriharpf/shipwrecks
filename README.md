@@ -1,5 +1,6 @@
 Shipwrecks
 ==========
+[![Github Actions Status](https://github.com/lauriharpf/shipwrecks/workflows/Java%20CI/badge.svg)](https://github.com/lauriharpf/shipwrecks/actions?query=workflow%3A%22Java+CI%22)
 
 ## Development
 
