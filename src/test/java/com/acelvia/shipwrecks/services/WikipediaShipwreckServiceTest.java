@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class WikipediaShipwreckServiceTest {
 
@@ -34,7 +33,6 @@ public class WikipediaShipwreckServiceTest {
 
         @Test
         void returnsExpectedAmountOfShipwrecks() {
-            fail();
             assertEquals(76, shipwrecks.size());
         }
 
