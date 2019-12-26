@@ -19,10 +19,17 @@ html {
    with the details about the selected shipwreck */
 #googleMapContainer,
 #shipwrecks {
-    width: 100%;
-    display: inline-block;
     vertical-align: top;
-    height: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+#googleMapContainer {
+    display: inline-block;
+}
+
+#shipwrecks {
+    display: none;
 }
 
 #wikipediaFrame,
@@ -43,6 +50,10 @@ html {
     right: 1.5%;
     margin-top: 1.3em;
     z-index: 1;
+}
+
+.shipwreck-controls .closeButton img {
+    width: 32px;
 }
 
 #shipwrecks {
@@ -70,7 +81,6 @@ html {
 
     #googleMapContainer,
     #shipwrecks {
-        width: 50%;
         height: 100%;
     }
 }

@@ -11,6 +11,7 @@
         vm.selectShipwreck = selectShipwreck;
         vm.isShipwreckSelected = isShipwreckSelected;
         vm.favouriteShipwreck = favouriteShipwreck;
+        vm.hideShipwreckPage = hideShipwreckPage;
         vm.auth = authenticationService;
         vm.canShowShipwreckControls = canShowShipwreckControls;
 
@@ -30,7 +31,7 @@
         vm.markers = [];
 
         GoogleMapApi.then(function (maps) {
-            vm.mapSpinner = vm.startAjaxSpinner("googleMapContainer", "25%");
+            vm.mapSpinner = vm.startAjaxSpinner("googleMapContainer", "50%");
 
             vm.map = {
                 center: {
@@ -108,11 +109,12 @@
          */
         function selectShipwreck(marker) {
             var wikipediaPage = this.shipwrecks[marker.id].name.replace(/ /g, '_');
+            showShipwreckPage();
 
             if(!this.selectedShipwreck || wikipediaPage != this.selectedShipwreck.wikipediaPage) {
                 this.selectedShipwreck = this.shipwrecks[marker.id];
 
-                if(!this.spinner) this.spinner = this.startAjaxSpinner("shipwrecks", "75%");
+                if(!this.spinner) this.spinner = this.startAjaxSpinner("shipwrecks", "50%");
                 else this.spinner.spin(document.getElementById("shipwrecks"));
 
                 var newShipwreckLink = $sce.trustAsResourceUrl("https://en.wikipedia.org/wiki/" + wikipediaPage + "?printable=yes");
@@ -120,6 +122,17 @@
                 this.selectedShipwreck.link = newShipwreckLink;
                 this.selectedShipwreck.wikipediaPage = wikipediaPage;
             }
+        }
+
+        function showShipwreckPage() {
+            $("#googleMapContainer").hide();
+            $("#shipwrecks").show();
+        }
+
+        function hideShipwreckPage() {
+            this.selectedShipwreck = null;
+            $("#googleMapContainer").show();
+            $("#shipwrecks").hide();
         }
 
         /**

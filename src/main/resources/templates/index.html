@@ -48,9 +48,13 @@
 
     <div class="container" id="mainContainer">
         <div class="shipwreck-controls">
+            <button class="closeButton" ng-click="shipwreckCtrl.hideShipwreckPage()"
+                    ng-show="shipwreckCtrl.isShipwreckSelected()">
+                <img src="/images/close.svg"/>
+            </button>
             <button ng-click="shipwreckCtrl.favouriteShipwreck()" ng-show="shipwreckCtrl.canShowShipwreckControls()">
-                <img src="/images/black_star.svg" ng-hide="shipwreckCtrl.selectedShipwreck.favourite" />
-                <img src="/images/yellow_star.svg" ng-show="shipwreckCtrl.selectedShipwreck.favourite" />
+                <img ng-hide="shipwreckCtrl.selectedShipwreck.favourite" src="/images/black_star.svg"/>
+                <img ng-show="shipwreckCtrl.selectedShipwreck.favourite" src="/images/yellow_star.svg"/>
             </button>
         </div>
         <div id="googleMapContainer">
