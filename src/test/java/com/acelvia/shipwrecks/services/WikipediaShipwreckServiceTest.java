@@ -1,11 +1,13 @@
 package com.acelvia.shipwrecks.services;
 
-import com.acelvia.shipwrecks.Shipwreck;
+import com.acelvia.shipwrecks.models.Shipwreck;
+import com.acelvia.shipwrecks.testdata.Shipwrecks;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.InputStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +18,7 @@ public class WikipediaShipwreckServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        wikipediaShipwreckService = new WikipediaShipwreckService();
+        wikipediaShipwreckService = new WikipediaShipwreckService(Mockito.mock(RestTemplate.class));
     }
 
     @Nested
@@ -26,10 +28,9 @@ public class WikipediaShipwreckServiceTest {
 
         @BeforeEach
         void beforeEach() throws Exception {
-            InputStream africanShipwrecks = WikipediaShipwreckService.class.getResourceAsStream(
-                    "/list_of_shipwrecks_of_africa.kml");
-            shipwrecks = wikipediaShipwreckService.parseShipwreckData(africanShipwrecks);
+            shipwrecks = wikipediaShipwreckService.parseShipwreckData(Shipwrecks.ofAfrica());
         }
+
 
         @Test
         void returnsExpectedAmountOfShipwrecks() {

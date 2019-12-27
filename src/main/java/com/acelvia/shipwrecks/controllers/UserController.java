@@ -1,7 +1,7 @@
 package com.acelvia.shipwrecks.controllers;
 
-import com.acelvia.shipwrecks.Shipwreck;
 import com.acelvia.shipwrecks.models.Favourite;
+import com.acelvia.shipwrecks.models.Shipwreck;
 import com.acelvia.shipwrecks.models.User;
 import com.acelvia.shipwrecks.repositories.FavouriteRepository;
 import com.acelvia.shipwrecks.repositories.UserRepository;
@@ -119,7 +119,7 @@ public class UserController {
         }
 
         Optional<Favourite> favourite = favouriteRepository.findById(id);
-        if (!favourite.isPresent()) {
+        if (favourite.isEmpty()) {
             response.setStatus(404);
             return;
         }

@@ -1,17 +1,15 @@
 package com.acelvia.shipwrecks.services;
 
-import com.acelvia.shipwrecks.Shipwreck;
+import com.acelvia.shipwrecks.models.Shipwreck;
 import com.acelvia.shipwrecks.services.wikipedia.*;
-import org.apache.http.client.fluent.Content;
-import org.apache.http.client.fluent.Request;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,23 +17,29 @@ import java.util.List;
 @Service
 public class WikipediaShipwreckService implements ShipwreckService {
 
+    private RestTemplate client;
+
+    public WikipediaShipwreckService(RestTemplate client) {
+        this.client = client;
+    }
+
     @Override
     @Cacheable(value = "shipwrecks", unless = "#result.isEmpty()")
     public List<Shipwreck> getShipwrecks(Area area) {
         try {
-            Content content = Request.Get(area.getKmlURL()).execute().returnContent();
-            return parseShipwreckData(content.asStream());
-        } catch (IOException | JAXBException e) {
+            String content = client.getForObject(area.getKmlURL(), String.class);
+            return parseShipwreckData(content);
+        } catch (JAXBException e) {
             // Something went wrong; return an empty list so the result isn't cached
             return Collections.emptyList();
         }
     }
 
-    protected List<Shipwreck> parseShipwreckData(InputStream shipwreckData) throws JAXBException {
+    protected List<Shipwreck> parseShipwreckData(String shipwreckData) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(Kml.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-        Kml kml = ((Kml) unmarshaller.unmarshal(shipwreckData));
+        Kml kml = ((Kml) unmarshaller.unmarshal(new StringReader(shipwreckData)));
         Document document = kml.getDocument();
 
         List<Shipwreck> shipwrecks = new ArrayList<>();

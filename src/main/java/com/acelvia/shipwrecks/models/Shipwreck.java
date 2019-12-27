@@ -1,4 +1,4 @@
-package com.acelvia.shipwrecks;
+package com.acelvia.shipwrecks.models;
 
 public class Shipwreck {
     private final String name;
@@ -42,6 +42,13 @@ public class Shipwreck {
 
     public void setFavouriteId(String b) {
         this.favouriteId = b;
+    }
+
+    public Shipwreck copy() {
+        Shipwreck clone = new Shipwreck(name, latitude, longitude);
+        clone.favourite = favourite;
+        clone.favouriteId = favouriteId;
+        return clone;
     }
 
     @Override

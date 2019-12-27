@@ -1,6 +1,6 @@
 package com.acelvia.shipwrecks.services;
 
-import com.acelvia.shipwrecks.Shipwreck;
+import com.acelvia.shipwrecks.models.Shipwreck;
 
 import java.util.List;
 
