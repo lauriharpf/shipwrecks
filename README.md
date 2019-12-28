@@ -1,5 +1,5 @@
-Shipwrecks
-==========
+Shipwrecks.cc
+=============
 [![Github Actions Status](https://github.com/lauriharpf/shipwrecks/workflows/Java%20CI/badge.svg)](https://github.com/lauriharpf/shipwrecks/actions?query=workflow%3A%22Java+CI%22)
 
 ## Development
@@ -26,4 +26,4 @@ Shipwrecks
 No hot reloading: Restart the app after **any** changes to frontend or backend.
 
 ### Deployment
-Shipwrecks is hosted at Heroku ( https://shipwrecks.herokuapp.com/ ). Pushing to `master` triggers Heroku to deploy a new version.
+Shipwrecks is hosted at Heroku ( https://shipwrecks.cc/ ). Pushing to `master` triggers Heroku to deploy a new version.
