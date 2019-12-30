@@ -21,9 +21,9 @@ Shipwrecks.cc
 ### Running
 1. Run `docker start some-mongo` from command line if MongoDB container isn't already started
 1. Run project via IntelliJ with the created configuration
+1. Optional: Run `npm run-script watch` in project directory to immediately update UI when JS files are changed
 1. Open `http://localhost:8080/` in your browser
 
-No hot reloading: Restart the app after **any** changes to frontend or backend.
 
 ### Deployment
-Shipwrecks is hosted at Heroku ( https://shipwrecks.cc/ ). Pushing to `master` triggers Heroku to deploy a new version.
+Shipwrecks is hosted at Heroku ( https://shipwrecks.cc/ ). Pushing to `master` triggers Heroku to deploy a new version after CI has passed.

@@ -1,25 +1,29 @@
 /* Styles for the navigation bar at the top */
-.navbar {
-  margin: 0;
+.navBarContainer {
+  display: flex;
+  height: 50px;
+  background-image: linear-gradient(to bottom, #fff 0, #f8f8f8 100%);
 }
 
-nav .container {
-    margin-left: 0;
+.navBarContainer a {
+  color: #5e5e5e;
+  text-decoration: none;
 }
 
-a.navbar-brand {
-    text-shadow: 1px 1px 0 rgb(223, 227, 229), 2px 2px 0 rgba(0, 0, 0, 0.25);
-    font-size: 33px;
+.navBarContainer a:hover {
+  color: #333;
+  text-decoration: none;
 }
 
-nav li > a.plaintext {
-  cursor: default;
-}
-
-nav li > button.btn {
-  margin: 8px;
-}
-
-.navbar .github {
+.navBarContainer .github {
+  margin-top: auto;
+  margin-bottom: 12px;
   font-size: 12px;
+}
+
+.navBarContainer .logo {
+  text-shadow: 1px 1px 0 rgb(223, 227, 229), 2px 2px 0 rgba(0, 0, 0, 0.25);
+  font-size: 33px;
+  padding-right: 30px;
+  padding-left: 15px;
 }

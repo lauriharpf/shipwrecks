@@ -73,7 +73,7 @@ public class ShipwreckControllerTest {
         }
 
         private MockHttpServletRequestBuilder getShipwrecksRequest() {
-            return MockMvcRequestBuilders.get("/shipwrecks");
+            return MockMvcRequestBuilders.get("/api/shipwrecks");
         }
 
         private TestShipwreck[] getShipwrecks(MockHttpServletRequestBuilder requestBuilder) throws Exception {
