@@ -1,6 +1,29 @@
 /* Styles that apply to the entire content area */
 html,
 body,
-#react {
+#react,
+.mainContent iframe {
   height: 100%;
+  width: 100%;
+}
+
+.mainContent {
+  height: calc(100% - 50px);
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Styles for the area that holds details about the selected shipwreck */
+.shipwreck-controls {
+  position: absolute;
+  right: 1.5%;
+  margin-top: 1.3em;
+  z-index: 1;
+}
+
+.shipwreck-controls .closeButton img {
+  width: 32px;
 }

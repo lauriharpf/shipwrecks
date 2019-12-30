@@ -1,68 +1,31 @@
-import React, { useEffect, useState } from "react";
-import api from "./api";
-import {
-  GoogleMap,
-  LoadScript,
-  MarkerClusterer,
-  Marker
-} from "@react-google-maps/api";
+import React, { useState } from "react";
+import { GoogleMap } from "@react-google-maps/api";
+import MapContent from "./MapContent";
 
-const simpleMap = props => {
-  const [shipwrecks, setShipwrecks] = useState([]);
-  useEffect(() => {
-    async function fetchShipwrecks() {
-      const result = await api.getShipwrecks();
-      setShipwrecks(result.data);
-    }
-    fetchShipwrecks();
-  }, []);
+export default ({ shipwrecks, isVisible, handleMarkerClick }) => {
+  const [center, setCenter] = useState({
+    lat: 43.13,
+    lng: 27.55
+  });
 
-  const options = {
-    imagePath: "images/markerclusterer/m",
-    minimumClusterSize: 5
-  };
+  let map;
+  const onMapLoad = loadedMap => (map = loadedMap);
+  const centerChanged = () =>
+    map && setCenter({ lat: map.center.lat(), lng: map.center.lng() });
 
   return (
-    <LoadScript
-      id="script-loader"
-      googleMapsApiKey="AIzaSyDWOU36_aLESVSSCFsrk4WdH9Q1mXdamgo"
-      style={{ height: "calc(100% - 50px)", width: "100%" }}
+    <GoogleMap
+      id="shipwreck-map"
+      mapContainerClassName={isVisible ? "mainContent" : "hidden"}
+      zoom={3}
+      center={center}
+      onLoad={onMapLoad}
+      onCenterChanged={centerChanged}
     >
-      <GoogleMap
-        id="shipwreck-map"
-        mapContainerStyle={{
-          height: "calc(100% - 50px)",
-          width: "100%"
-        }}
-        zoom={3}
-        center={{
-          lat: 43.13,
-          lng: 27.55
-        }}
-      >
-        <MarkerClusterer options={options}>
-          {clusterer => {
-            const defaultMarkerIcon = {
-              path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-              scale: 5,
-              strokeWeight: 1,
-              fillColor: "white",
-              fillOpacity: 1
-            };
-            return shipwrecks.map((ship, index) => (
-              <Marker
-                key={index}
-                position={{ lat: ship.latitude, lng: ship.longitude }}
-                clusterer={clusterer}
-                title={ship.name}
-                icon={defaultMarkerIcon}
-              />
-            ));
-          }}
-        </MarkerClusterer>
-      </GoogleMap>
-    </LoadScript>
+      <MapContent
+        shipwrecks={shipwrecks}
+        handleMarkerClick={handleMarkerClick}
+      />
+    </GoogleMap>
   );
 };
-
-export default simpleMap;
