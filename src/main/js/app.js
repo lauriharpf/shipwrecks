@@ -13,6 +13,7 @@ const NONE = -1;
 const App = () => {
   const [shipwrecks, setShipwrecks] = useState([]);
   const [selectedShipwreckId, setSelectedShipwreckId] = useState(NONE);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     async function fetchShipwrecks() {
@@ -29,9 +30,23 @@ const App = () => {
   const selectedShipwreckName =
     selectedShipwreckId !== NONE ? shipwrecks[selectedShipwreckId].name : "";
 
+  const handleLoginSuccess = async googleUser => {
+    await api.login(googleUser.getAuthResponse().id_token);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogoutSuccess = async () => {
+    await api.logout();
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        handleLoginSuccess={handleLoginSuccess}
+        handleLogoutSuccess={handleLogoutSuccess}
+      />
       {selectedShipwreckName && (
         <ShipwreckDetails
           shipwreckName={selectedShipwreckName}

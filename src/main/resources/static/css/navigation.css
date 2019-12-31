@@ -27,3 +27,10 @@
   padding-right: 30px;
   padding-left: 15px;
 }
+
+.navBarContainer .loginButton {
+  margin-left: auto;
+  margin-right: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
