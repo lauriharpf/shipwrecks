@@ -24,6 +24,10 @@ body,
   z-index: 1;
 }
 
+.shipwreck-controls button {
+  margin-left: 5px;
+}
+
 .shipwreck-controls .closeButton img {
   width: 32px;
 }

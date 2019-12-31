@@ -14,12 +14,17 @@ export default ({ shipwrecks, handleMarkerClick }) => {
     fillColor: "white",
     fillOpacity: 1
   };
+  const favouriteMarkerIcon = {
+    ...defaultMarkerIcon,
+    fillColor: "orange"
+  };
 
   return (
     <MarkerClusterer options={options}>
       {clusterer => {
         return shipwrecks.map((ship, index) => {
           const onClick = () => handleMarkerClick(ship.id);
+          const icon = ship.favourite ? favouriteMarkerIcon : defaultMarkerIcon;
 
           return (
             <Marker
@@ -27,7 +32,7 @@ export default ({ shipwrecks, handleMarkerClick }) => {
               position={{ lat: ship.latitude, lng: ship.longitude }}
               clusterer={clusterer}
               title={ship.name}
-              icon={defaultMarkerIcon}
+              icon={icon}
               onClick={onClick}
             />
           );

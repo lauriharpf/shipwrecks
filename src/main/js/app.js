@@ -15,29 +15,48 @@ const App = () => {
   const [selectedShipwreckId, setSelectedShipwreckId] = useState(NONE);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const fetchShipwrecks = async () => {
+    const response = await api.getShipwrecks();
+    const data = response.data.map((ship, index) => ({ id: index, ...ship }));
+    setShipwrecks(data);
+  };
+
   useEffect(() => {
-    async function fetchShipwrecks() {
-      const response = await api.getShipwrecks();
-      const data = response.data.map((ship, index) => ({ id: index, ...ship }));
-      setShipwrecks(data);
-    }
     fetchShipwrecks();
   }, []);
 
   const handleMarkerClick = id => setSelectedShipwreckId(id);
   const handleCloseButtonClick = () => setSelectedShipwreckId(NONE);
 
-  const selectedShipwreckName =
-    selectedShipwreckId !== NONE ? shipwrecks[selectedShipwreckId].name : "";
-
   const handleLoginSuccess = async googleUser => {
     await api.login(googleUser.getAuthResponse().id_token);
+    await fetchShipwrecks();
     setIsLoggedIn(true);
   };
 
   const handleLogoutSuccess = async () => {
     await api.logout();
-    setIsLoggedIn(false);
+    window.location = window.location.origin;
+  };
+
+  const setFavourite = async () => {
+    const shipwreck = shipwrecks[selectedShipwreckId];
+    const response = await api.setFavourite({
+      name: shipwreck.name,
+      latitude: shipwreck.latitude,
+      longitude: shipwreck.longitude
+    });
+
+    let updatedShipwrecks = shipwrecks.slice(0, selectedShipwreckId).concat({
+      ...shipwreck,
+      favourite: true,
+      favouriteId: response.data.favouriteId
+    });
+    updatedShipwrecks = updatedShipwrecks.concat(
+      shipwrecks.slice(selectedShipwreckId + 1)
+    );
+
+    setShipwrecks(updatedShipwrecks);
   };
 
   return (
@@ -47,10 +66,12 @@ const App = () => {
         handleLoginSuccess={handleLoginSuccess}
         handleLogoutSuccess={handleLogoutSuccess}
       />
-      {selectedShipwreckName && (
+      {shipwrecks[selectedShipwreckId] && (
         <ShipwreckDetails
-          shipwreckName={selectedShipwreckName}
+          ship={shipwrecks[selectedShipwreckId]}
+          isLoggedIn={isLoggedIn}
           handleCloseButtonClick={handleCloseButtonClick}
+          handleFavouriteButtonClick={setFavourite}
         />
       )}
       <MapLoader

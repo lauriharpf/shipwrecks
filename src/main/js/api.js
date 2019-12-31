@@ -13,5 +13,6 @@ const post = (url, data) =>
 export default {
   getShipwrecks: () => axios.get("/api/shipwrecks"),
   login: idToken => post("/api/login", idToken),
-  logout: () => post("/api/logout")
+  logout: () => post("/api/logout"),
+  setFavourite: shipwreck => post("/api/favourites", shipwreck)
 };

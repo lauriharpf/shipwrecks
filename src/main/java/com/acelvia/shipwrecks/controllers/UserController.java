@@ -77,23 +77,17 @@ public class UserController {
         return currentUser.getFavourites();
     }
 
-    @RequestMapping(value = "/favourites", method = RequestMethod.POST)
-    public Shipwreck addFavourite(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            @RequestParam("name") String name,
-            @RequestParam("latitude") float latitude,
-            @RequestParam("longitude") float longitude
-            ) {
+    @PostMapping(value = "/api/favourites")
+    public Shipwreck addFavourite(@RequestBody Shipwreck newShipwreck, HttpServletRequest request,
+                                  HttpServletResponse response) {
         User currentUser = (User) request.getSession().getAttribute("user");
-        if(currentUser == null) {
+        if (currentUser == null) {
             response.setStatus(401);
             return null;
         }
-        Shipwreck newShipwreck = new Shipwreck(name,latitude,longitude);
         Favourite newFavourite = new Favourite(newShipwreck);
 
-        if(!currentUser.getFavourites().contains(newFavourite)) {
+        if (!currentUser.getFavourites().contains(newFavourite)) {
             newFavourite = favouriteRepository.save(newFavourite);
 
             newShipwreck.setFavourite(true);
