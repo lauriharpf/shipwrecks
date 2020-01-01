@@ -4,7 +4,6 @@ import api from "./api";
 import Navbar from "./Navbar";
 import MapLoader from "./MapLoader";
 import ShipwreckDetails from "./ShipwreckDetails";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../resources/static/css/navigation.css";
 import "../resources/static/css/shipwrecks.css";
 
