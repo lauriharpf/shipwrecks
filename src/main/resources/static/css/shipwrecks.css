@@ -7,6 +7,10 @@ body,
   width: 100%;
 }
 
+body {
+  margin: 0;
+}
+
 .mainContent {
   height: calc(100% - 50px);
   width: 100%;
