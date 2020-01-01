@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 
 const clientId =
-  "487816782475-nscq0o4e70nrcvbq6iappn11mr5ml0ka.apps.googleusercontent.com";
+  "543484748190-1ease60qde5gfvvuc8e4576ckt4c16om.apps.googleusercontent.com";
 
 export default ({ isLoggedIn, handleLoginSuccess, handleLogoutSuccess }) => {
   const handleFailure = response => console.error(response);
