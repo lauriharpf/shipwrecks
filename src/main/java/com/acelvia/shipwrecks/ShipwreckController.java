@@ -21,7 +21,7 @@ public class ShipwreckController {
     @Autowired
     private ShipwreckService shipwreckService;
 
-    @RequestMapping("/shipwrecks")
+    @RequestMapping("/api/shipwrecks")
     public List<Shipwreck> shipwrecks(HttpServletRequest request) {
         List<Shipwreck> allShipwrecks = new ArrayList<>();
 
