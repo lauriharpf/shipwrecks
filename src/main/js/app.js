@@ -39,24 +39,47 @@ const App = () => {
     window.location = window.location.origin;
   };
 
-  const setFavourite = async () => {
+  const updateSelectedShipwreck = updatedShipwreck => {
+    let updatedShipwrecks = [
+      ...shipwrecks.slice(0, selectedShipwreckId),
+      updatedShipwreck,
+      ...shipwrecks.slice(selectedShipwreckId + 1)
+    ];
+
+    setShipwrecks(updatedShipwrecks);
+  };
+
+  const handleFavouriteButtonClick = () => {
     const shipwreck = shipwrecks[selectedShipwreckId];
+    if (shipwreck.favourite) {
+      removeFavourite(shipwreck);
+    } else {
+      setFavourite(shipwreck);
+    }
+  };
+
+  const setFavourite = async shipwreck => {
     const response = await api.setFavourite({
       name: shipwreck.name,
       latitude: shipwreck.latitude,
       longitude: shipwreck.longitude
     });
 
-    let updatedShipwrecks = shipwrecks.slice(0, selectedShipwreckId).concat({
+    updateSelectedShipwreck({
       ...shipwreck,
       favourite: true,
       favouriteId: response.data.favouriteId
     });
-    updatedShipwrecks = updatedShipwrecks.concat(
-      shipwrecks.slice(selectedShipwreckId + 1)
-    );
+  };
 
-    setShipwrecks(updatedShipwrecks);
+  const removeFavourite = async shipwreck => {
+    await api.removeFavourite(shipwreck.favouriteId);
+
+    updateSelectedShipwreck({
+      ...shipwreck,
+      favourite: false,
+      favouriteId: null
+    });
   };
 
   return (
@@ -71,7 +94,7 @@ const App = () => {
           ship={shipwrecks[selectedShipwreckId]}
           isLoggedIn={isLoggedIn}
           handleCloseButtonClick={handleCloseButtonClick}
-          handleFavouriteButtonClick={setFavourite}
+          handleFavouriteButtonClick={handleFavouriteButtonClick}
         />
       )}
       <MapLoader

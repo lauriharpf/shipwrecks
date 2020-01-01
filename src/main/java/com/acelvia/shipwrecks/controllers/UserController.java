@@ -100,7 +100,7 @@ public class UserController {
         return newShipwreck;
     }
 
-    @RequestMapping(value = "/favourites/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/favourites/{id}", method = RequestMethod.DELETE)
     public void removeFavourite(
             HttpServletRequest request,
             HttpServletResponse response,
