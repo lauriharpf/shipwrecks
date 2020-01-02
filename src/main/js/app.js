@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import api from "./api";
-import Navbar from "./Navbar";
-import MapLoader from "./MapLoader";
-import ShipwreckDetails from "./ShipwreckDetails";
+import Navbar from "./navigation/Navbar";
+import MainContent from "./MainContent";
 import "../resources/static/css/navigation.css";
 import "../resources/static/css/shipwrecks.css";
 
-const NONE = -1;
-
 const App = () => {
   const [shipwrecks, setShipwrecks] = useState([]);
-  const [selectedShipwreckId, setSelectedShipwreckId] = useState(NONE);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const fetchShipwrecks = async () => {
@@ -24,9 +20,6 @@ const App = () => {
     fetchShipwrecks();
   }, []);
 
-  const handleMarkerClick = id => setSelectedShipwreckId(id);
-  const handleCloseButtonClick = () => setSelectedShipwreckId(NONE);
-
   const handleLoginSuccess = async googleUser => {
     await api.login(googleUser.getAuthResponse().id_token);
     await fetchShipwrecks();
@@ -38,47 +31,14 @@ const App = () => {
     window.location = window.location.origin;
   };
 
-  const updateSelectedShipwreck = updatedShipwreck => {
-    let updatedShipwrecks = [
-      ...shipwrecks.slice(0, selectedShipwreckId),
-      updatedShipwreck,
-      ...shipwrecks.slice(selectedShipwreckId + 1)
+  const setFavouriteId = (favouriteId, index) => {
+    const updatedShipwrecks = [
+      ...shipwrecks.slice(0, index),
+      { ...shipwrecks[index], favourite: !!favouriteId, favouriteId },
+      ...shipwrecks.slice(index + 1)
     ];
 
     setShipwrecks(updatedShipwrecks);
-  };
-
-  const handleFavouriteButtonClick = () => {
-    const shipwreck = shipwrecks[selectedShipwreckId];
-    if (shipwreck.favourite) {
-      removeFavourite(shipwreck);
-    } else {
-      setFavourite(shipwreck);
-    }
-  };
-
-  const setFavourite = async shipwreck => {
-    const response = await api.setFavourite({
-      name: shipwreck.name,
-      latitude: shipwreck.latitude,
-      longitude: shipwreck.longitude
-    });
-
-    updateSelectedShipwreck({
-      ...shipwreck,
-      favourite: true,
-      favouriteId: response.data.favouriteId
-    });
-  };
-
-  const removeFavourite = async shipwreck => {
-    await api.removeFavourite(shipwreck.favouriteId);
-
-    updateSelectedShipwreck({
-      ...shipwreck,
-      favourite: false,
-      favouriteId: null
-    });
   };
 
   return (
@@ -88,18 +48,10 @@ const App = () => {
         handleLoginSuccess={handleLoginSuccess}
         handleLogoutSuccess={handleLogoutSuccess}
       />
-      {shipwrecks[selectedShipwreckId] && (
-        <ShipwreckDetails
-          ship={shipwrecks[selectedShipwreckId]}
-          isLoggedIn={isLoggedIn}
-          handleCloseButtonClick={handleCloseButtonClick}
-          handleFavouriteButtonClick={handleFavouriteButtonClick}
-        />
-      )}
-      <MapLoader
+      <MainContent
+        isLoggedIn={isLoggedIn}
+        setFavouriteId={setFavouriteId}
         shipwrecks={shipwrecks}
-        isVisible={selectedShipwreckId === NONE}
-        handleMarkerClick={handleMarkerClick}
       />
     </>
   );
