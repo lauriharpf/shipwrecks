@@ -11,7 +11,7 @@
     "react-google-login": "^5.0.7"
   },
   "scripts": {
-    "watch": "webpack --watch -d --output ./target/classes/static/built/bundle.js"
+    "watch": "webpack --watch --config webpack.dev.js -d --output ./target/classes/static/built/bundle.js"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

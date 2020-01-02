@@ -23,7 +23,7 @@ body {
 /* Styles for the area that holds details about the selected shipwreck */
 .shipwreck-controls {
   position: absolute;
-  right: 1.5%;
+  right: 20px;
   margin-top: 1.3em;
   z-index: 1;
 }
