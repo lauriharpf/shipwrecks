@@ -15,7 +15,7 @@ Shipwrecks.cc
 1. Click _Add Configuration..._ . Add a new Maven configuration with
     * Working directory: _(Project folder)_
     * Command line: `spring-boot:run -Dspring-boot.run.fork=false`
-    * In the `Runner` tab of the configuration, change `Environment variables` to `DATABASE_URL=mongodb://localhost:27017/test;GOOGLE_ID="";GOOGLE_CALLBACK_URI="";GOOGLE_SECRET=""` 
+    * In the `Runner` tab of the configuration, change `Environment variables` to `DATABASE_URL=mongodb://localhost:27017/test` 
 1. Open _File -> Project structure_. Ensure _Project SDK_ and _Project language level_ are set to _11_.
 
 ### Running
@@ -23,6 +23,7 @@ Shipwrecks.cc
 1. Run project via IntelliJ with the created configuration
 1. Optional: Run `npm run-script watch` in project directory to immediately update UI when JS files are changed
 1. Open `http://localhost:8080/` in your browser
+
 
 
 ### Deployment

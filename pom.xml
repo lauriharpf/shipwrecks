@@ -13,6 +13,30 @@
         <version>2.2.2.RELEASE</version>
     </parent>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <webpack.config>webpack.dev.js</webpack.config>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <activation>
+                <property>
+                    <name>env.PRODUCTION_BUILD</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <webpack.config>webpack.prod.js</webpack.config>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -137,6 +161,9 @@
                         <goals>
                             <goal>webpack</goal>
                         </goals>
+                        <configuration>
+                            <arguments>--config ${webpack.config}</arguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
