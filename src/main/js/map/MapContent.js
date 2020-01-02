@@ -6,7 +6,7 @@ const options = {
   minimumClusterSize: 5
 };
 
-export default ({ shipwrecks, handleMarkerClick }) => {
+export default ({ shipwrecks, favourites, handleMarkerClick }) => {
   const defaultMarkerIcon = {
     path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
     scale: 5,
@@ -24,7 +24,9 @@ export default ({ shipwrecks, handleMarkerClick }) => {
       {clusterer => {
         return shipwrecks.map((ship, index) => {
           const onClick = () => handleMarkerClick(ship.id);
-          const icon = ship.favourite ? favouriteMarkerIcon : defaultMarkerIcon;
+          const icon = favourites.includes(ship.name)
+            ? favouriteMarkerIcon
+            : defaultMarkerIcon;
 
           return (
             <Marker

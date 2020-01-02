@@ -1,52 +1,45 @@
 import React, { useState } from "react";
-import api from "./api";
+import favouriteStore from "./favouriteStore";
 import MapLoader from "./map/MapLoader";
 import ShipwreckDetails from "./shipwreckdetails/ShipwreckDetails";
 
 const NONE = -1;
 
-export default ({ shipwrecks, setFavouriteId, isLoggedIn }) => {
+export default ({ shipwrecks, isLoggedIn }) => {
   const [selectedShipwreckId, setSelectedShipwreckId] = useState(NONE);
+  const [favourites, setFavourites] = useState(favouriteStore.getAll());
+
   const handleMarkerClick = id => setSelectedShipwreckId(id);
   const handleCloseButtonClick = () => setSelectedShipwreckId(NONE);
 
   const handleFavouriteButtonClick = () => {
-    const shipwreck = shipwrecks[selectedShipwreckId];
-    if (shipwreck.favourite) {
-      removeFavourite(shipwreck);
+    const shipwreckName = shipwrecks[selectedShipwreckId].name;
+    if (favouriteStore.has(shipwreckName)) {
+      favouriteStore.remove(shipwreckName);
     } else {
-      setFavourite(shipwreck);
+      favouriteStore.add(shipwreckName);
     }
+
+    setFavourites(favouriteStore.getAll());
   };
 
-  const setFavourite = async shipwreck => {
-    const response = await api.setFavourite({
-      name: shipwreck.name,
-      latitude: shipwreck.latitude,
-      longitude: shipwreck.longitude
-    });
-
-    setFavouriteId(response.data.favouriteId, selectedShipwreckId);
-  };
-
-  const removeFavourite = async shipwreck => {
-    await api.removeFavourite(shipwreck.favouriteId);
-
-    setFavouriteId(null, selectedShipwreckId);
-  };
+  const shipName =
+    selectedShipwreckId !== NONE ? shipwrecks[selectedShipwreckId].name : "";
 
   return (
     <>
-      {shipwrecks[selectedShipwreckId] && (
+      {selectedShipwreckId !== NONE && (
         <ShipwreckDetails
-          ship={shipwrecks[selectedShipwreckId]}
+          shipName={shipName}
           isLoggedIn={isLoggedIn}
+          isFavourite={favourites.includes(shipName)}
           handleCloseButtonClick={handleCloseButtonClick}
           handleFavouriteButtonClick={handleFavouriteButtonClick}
         />
       )}
       <MapLoader
         shipwrecks={shipwrecks}
+        favourites={favourites}
         isVisible={selectedShipwreckId === NONE}
         handleMarkerClick={handleMarkerClick}
       />

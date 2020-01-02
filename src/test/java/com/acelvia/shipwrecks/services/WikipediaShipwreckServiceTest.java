@@ -31,7 +31,6 @@ public class WikipediaShipwreckServiceTest {
             shipwrecks = wikipediaShipwreckService.parseShipwreckData(Shipwrecks.ofAfrica());
         }
 
-
         @Test
         void returnsExpectedAmountOfShipwrecks() {
             assertEquals(76, shipwrecks.size());

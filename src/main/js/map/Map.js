@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import MapContent from "./MapContent";
 
-export default ({ shipwrecks, isVisible, handleMarkerClick }) => {
+export default ({ shipwrecks, favourites, isVisible, handleMarkerClick }) => {
   const [center, setCenter] = useState({
     lat: 43.13,
     lng: 27.55
@@ -24,6 +24,7 @@ export default ({ shipwrecks, isVisible, handleMarkerClick }) => {
     >
       <MapContent
         shipwrecks={shipwrecks}
+        favourites={favourites}
         handleMarkerClick={handleMarkerClick}
       />
     </GoogleMap>

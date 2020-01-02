@@ -8,7 +8,6 @@ import "../resources/static/css/shipwrecks.css";
 
 const App = () => {
   const [shipwrecks, setShipwrecks] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const fetchShipwrecks = async () => {
     const response = await api.getShipwrecks();
@@ -20,39 +19,10 @@ const App = () => {
     fetchShipwrecks();
   }, []);
 
-  const handleLoginSuccess = async googleUser => {
-    await api.login(googleUser.getAuthResponse().id_token);
-    await fetchShipwrecks();
-    setIsLoggedIn(true);
-  };
-
-  const handleLogoutSuccess = async () => {
-    await api.logout();
-    window.location = window.location.origin;
-  };
-
-  const setFavouriteId = (favouriteId, index) => {
-    const updatedShipwrecks = [
-      ...shipwrecks.slice(0, index),
-      { ...shipwrecks[index], favourite: !!favouriteId, favouriteId },
-      ...shipwrecks.slice(index + 1)
-    ];
-
-    setShipwrecks(updatedShipwrecks);
-  };
-
   return (
     <>
-      <Navbar
-        isLoggedIn={isLoggedIn}
-        handleLoginSuccess={handleLoginSuccess}
-        handleLogoutSuccess={handleLogoutSuccess}
-      />
-      <MainContent
-        isLoggedIn={isLoggedIn}
-        setFavouriteId={setFavouriteId}
-        shipwrecks={shipwrecks}
-      />
+      <Navbar />
+      <MainContent shipwrecks={shipwrecks} />
     </>
   );
 };

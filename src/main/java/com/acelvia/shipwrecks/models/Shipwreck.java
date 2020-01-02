@@ -4,8 +4,6 @@ public class Shipwreck {
     private final String name;
     private final float latitude;
     private final float longitude;
-    private boolean favourite;
-    private String favouriteId;
 
     public Shipwreck(String name, float latitude, float longitude) {
         this.name = name;
@@ -26,29 +24,6 @@ public class Shipwreck {
     @SuppressWarnings("unused")
     public String getName() {
         return name;
-    }
-
-    public boolean getFavourite() {
-        return favourite;
-    }
-
-    public void setFavourite(boolean b) {
-        this.favourite = b;
-    }
-
-    public String getFavouriteId() {
-        return favouriteId;
-    }
-
-    public void setFavouriteId(String b) {
-        this.favouriteId = b;
-    }
-
-    public Shipwreck copy() {
-        Shipwreck clone = new Shipwreck(name, latitude, longitude);
-        clone.favourite = favourite;
-        clone.favouriteId = favouriteId;
-        return clone;
     }
 
     @Override
