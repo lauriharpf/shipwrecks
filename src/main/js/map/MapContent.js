@@ -3,7 +3,7 @@ import { Marker, MarkerClusterer } from "@react-google-maps/api";
 
 const options = {
   imagePath: "images/markerclusterer/m",
-  minimumClusterSize: 5
+  minimumClusterSize: 3
 };
 
 export default ({ shipwrecks, favourites, handleMarkerClick }) => {
@@ -12,7 +12,8 @@ export default ({ shipwrecks, favourites, handleMarkerClick }) => {
     scale: 5,
     strokeWeight: 1,
     fillColor: "white",
-    fillOpacity: 1
+    fillOpacity: 1,
+    labelOrigin: new google.maps.Point(0, 2)
   };
   const favouriteMarkerIcon = {
     ...defaultMarkerIcon,
@@ -33,6 +34,7 @@ export default ({ shipwrecks, favourites, handleMarkerClick }) => {
               key={index}
               position={{ lat: ship.latitude, lng: ship.longitude }}
               clusterer={clusterer}
+              label={{ text: ship.name, fontSize: "12px", fontWeight: "bold" }}
               title={ship.name}
               icon={icon}
               onClick={onClick}
