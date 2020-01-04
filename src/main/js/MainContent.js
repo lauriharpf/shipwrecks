@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import favouriteStore from "./favouriteStore";
 import MapLoader from "./map/MapLoader";
 import ShipwreckDetails from "./shipwreckdetails/ShipwreckDetails";
+import { NONE } from "./app";
 
-const NONE = -1;
-
-export default ({ shipwrecks, isLoggedIn }) => {
-  const [selectedShipwreckId, setSelectedShipwreckId] = useState(NONE);
+export default ({
+  shipwrecks,
+  selectedShipwreckId,
+  setSelectedShipwreckId,
+  isLoggedIn
+}) => {
   const [favourites, setFavourites] = useState(favouriteStore.getAll());
 
   const handleMarkerClick = id => setSelectedShipwreckId(id);
