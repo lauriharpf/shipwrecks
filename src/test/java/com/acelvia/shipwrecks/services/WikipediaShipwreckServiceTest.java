@@ -33,7 +33,7 @@ public class WikipediaShipwreckServiceTest {
 
         @Test
         void returnsExpectedAmountOfShipwrecks() {
-            assertEquals(76, shipwrecks.size());
+            assertEquals(75, shipwrecks.size());
         }
 
         @Test

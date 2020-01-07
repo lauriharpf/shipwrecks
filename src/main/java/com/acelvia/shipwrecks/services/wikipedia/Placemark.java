@@ -17,6 +17,10 @@ public class Placemark {
         return name;
     }
 
+    public boolean isNameValid() {
+        return !name.startsWith("#");
+    }
+
     public Point getPoint() {
         return point;
     }

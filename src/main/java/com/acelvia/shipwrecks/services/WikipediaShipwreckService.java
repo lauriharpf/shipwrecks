@@ -10,9 +10,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class WikipediaShipwreckService implements ShipwreckService {
@@ -42,22 +43,21 @@ public class WikipediaShipwreckService implements ShipwreckService {
         Kml kml = ((Kml) unmarshaller.unmarshal(new StringReader(shipwreckData)));
         Document document = kml.getDocument();
 
-        List<Shipwreck> shipwrecks = new ArrayList<>();
-        for (Placemark placemark : document.getPlacemarks()) {
-            Point wreckLocation = placemark.getPoint();
+        return document.getPlacemarks().stream().map(this::toShipwreck).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+    }
 
-            try {
-                shipwrecks.add(
-                        new Shipwreck(placemark.getName(),
-                                wreckLocation.getLatitude(),
-                                wreckLocation.getLongitude()
-                        )
-                );
-            } catch (InvalidCoordinateException e) {
-                // Ignore wrecks that have invalid coordinates
+    private Optional<Shipwreck> toShipwreck(Placemark placemark) {
+        Point location = placemark.getPoint();
+
+        try {
+            if (placemark.isNameValid()) {
+                var shipwreck = new Shipwreck(placemark.getName(), location.getLatitude(), location.getLongitude());
+                return Optional.of(shipwreck);
             }
+        } catch (InvalidCoordinateException e) {
+            // Ignore wrecks that have invalid coordinates
         }
 
-        return shipwrecks;
+        return Optional.empty();
     }
 }

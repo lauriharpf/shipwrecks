@@ -25,6 +25,6 @@ public class Point {
             throw new InvalidCoordinateException();
         }
 
-        return Float.valueOf(coordinateArray[index]);
+        return Float.parseFloat(coordinateArray[index]);
     }
 }

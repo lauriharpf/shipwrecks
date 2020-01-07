@@ -1,8 +1,6 @@
 package com.acelvia.shipwrecks.integrationtests;
 
 import com.acelvia.shipwrecks.Application;
-import com.acelvia.shipwrecks.models.Shipwreck;
-import com.acelvia.shipwrecks.services.Area;
 import com.acelvia.shipwrecks.testdata.Shipwrecks;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
@@ -48,10 +46,9 @@ public class ShipwreckControllerTest {
     @Test
     public void getShipwrecksReturnsShipwrecks() throws Exception {
         TestShipwreck[] shipwrecks = getShipwrecks(getShipwrecksRequest());
-        int shipwrecksInAfrica = 76;
-        int expectedRequestsToWikipedia = Area.values().length;
+        int validUniqueShipwrecks = 74;
 
-        Assert.assertEquals(shipwrecksInAfrica * expectedRequestsToWikipedia, shipwrecks.length);
+        Assert.assertEquals(validUniqueShipwrecks, shipwrecks.length);
     }
 
     private MockHttpServletRequestBuilder getShipwrecksRequest() {
@@ -63,7 +60,4 @@ public class ShipwreckControllerTest {
 
         return new ObjectMapper().readValue(responseBody, TestShipwreck[].class);
     }
-
-
-
 }
