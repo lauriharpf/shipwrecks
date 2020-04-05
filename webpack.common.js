@@ -1,7 +1,7 @@
 var path = require("path");
 
 module.exports = {
-  entry: "./src/main/js/app.js",
+  entry: "./src/main/js/app.tsx",
   cache: true,
   output: {
     path: __dirname,
@@ -14,17 +14,13 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.js$/i,
+        test: /\.(js|ts|tsx)$/i,
         exclude: /(node_modules)/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"]
-            }
-          }
-        ]
+        loaders: ["babel-loader", "ts-loader"]
       }
     ]
+  },
+  resolve: {
+    extensions: [".js", ".tsx", ".ts"]
   }
 };

@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "react-select";
+import { Ship } from "../Ship.types";
 import { NONE } from "../app";
 
-export default ({
+interface Props {
+  shipwrecks: Ship[];
+  selectedShipwreckId: number;
+  setSelectedShipwreckId: (id: number) => void;
+}
+
+interface Option {
+  value: number;
+  label: string;
+}
+
+const Navbar: React.FC<Props> = ({
   shipwrecks,
   selectedShipwreckId,
-  setSelectedShipwreckId
+  setSelectedShipwreckId,
 }) => {
-  const options = shipwrecks.map((shipwreck, index) => ({
+  const options: Option[] = shipwrecks.map((ship: Ship, index: number) => ({
     value: index,
-    label: shipwreck.name
+    label: ship.name,
   }));
   const selectedOption =
     selectedShipwreckId !== NONE ? options[selectedShipwreckId] : null;
-  const handleSelectionChange = selectedOption =>
-    setSelectedShipwreckId(selectedOption.value);
+  const handleSelectionChange = (option: Option) =>
+    setSelectedShipwreckId(option.value);
 
   return (
     <div className="navBarContainer">
@@ -35,3 +47,5 @@ export default ({
     </div>
   );
 };
+
+export default Navbar;

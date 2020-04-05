@@ -1,25 +1,18 @@
 import React from "react";
+import ShipwreckControls from "./ShipwreckControls";
 
-const ShipwreckControls = ({
-  handleCloseButtonClick,
-  isFavourite,
-  setFavourite
-}) => (
-  <div className="shipwreck-controls">
-    <button onClick={handleCloseButtonClick} className="closeButton">
-      <img src="/images/close.svg" />
-    </button>
-    <button onClick={setFavourite}>
-      <img src={`/images/${isFavourite ? "yellow" : "black"}_star.svg`} />
-    </button>
-  </div>
-);
+interface Props {
+  shipName: string;
+  isFavourite: boolean;
+  handleCloseButtonClick: () => void;
+  handleFavouriteButtonClick: () => void;
+}
 
-export default ({
+const ShipwreckDetails: React.FC<Props> = ({
   shipName,
   isFavourite,
   handleCloseButtonClick,
-  handleFavouriteButtonClick
+  handleFavouriteButtonClick,
 }) => {
   const wikipediaPage = shipName.replace(/ /g, "_");
   const wikipediaUrl = `https://en.wikipedia.org/wiki/${wikipediaPage}?printable=yes`;
@@ -35,3 +28,5 @@ export default ({
     </div>
   );
 };
+
+export default ShipwreckDetails;
