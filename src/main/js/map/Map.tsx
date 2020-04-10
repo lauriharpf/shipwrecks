@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import { GoogleMap } from "@react-google-maps/api";
+import { Ship } from "../Ship.types";
 import MapContent from "./MapContent";
 
-export default ({ shipwrecks, favourites, isVisible, handleMarkerClick }) => {
+interface Props {
+  shipwrecks: Ship[];
+  isVisible: boolean;
+  favourites: string[];
+  handleMarkerClick: (id: number) => void;
+}
+
+const Map: React.FC<Props> = ({
+  shipwrecks,
+  favourites,
+  isVisible,
+  handleMarkerClick,
+}) => {
   const [center, setCenter] = useState({
     lat: 43.13,
-    lng: 27.55
+    lng: 27.55,
   });
 
-  let map;
-  const onMapLoad = loadedMap => (map = loadedMap);
+  let map: google.maps.Map;
+  const onMapLoad = (loadedMap: google.maps.Map) => {
+    map = loadedMap;
+  };
   const centerChanged = () =>
-    map && setCenter({ lat: map.center.lat(), lng: map.center.lng() });
+    map &&
+    setCenter({ lat: map.getCenter().lat(), lng: map.getCenter().lng() });
 
   return (
     <GoogleMap
@@ -30,3 +46,5 @@ export default ({ shipwrecks, favourites, isVisible, handleMarkerClick }) => {
     </GoogleMap>
   );
 };
+
+export default Map;

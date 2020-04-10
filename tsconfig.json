@@ -9,5 +9,6 @@
     "allowJs": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true
-  }
+  },
+  "include": ["./node_modules/@react-google-maps/api/dist/index.d.ts"]
 }

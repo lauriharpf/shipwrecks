@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { LoadScript } from "@react-google-maps/api";
 import { Ship } from "./Ship.types";
 import favouriteStore from "./favouriteStore";
-import MapLoader from "./map/MapLoader";
+import Map from "./map/Map";
 import ShipwreckDetails from "./shipwreckdetails/ShipwreckDetails";
 import { NONE } from "./app";
 
@@ -45,12 +46,17 @@ const MainContent: React.FC<Props> = ({
           handleFavouriteButtonClick={handleFavouriteButtonClick}
         />
       )}
-      <MapLoader
-        shipwrecks={shipwrecks}
-        favourites={favourites}
-        isVisible={selectedShipwreckId === NONE}
-        handleMarkerClick={handleMarkerClick}
-      />
+      <LoadScript
+        id="script-loader"
+        googleMapsApiKey="AIzaSyDWOU36_aLESVSSCFsrk4WdH9Q1mXdamgo"
+      >
+        <Map
+          shipwrecks={shipwrecks}
+          favourites={favourites}
+          isVisible={selectedShipwreckId === NONE}
+          handleMarkerClick={handleMarkerClick}
+        />
+      </LoadScript>
     </>
   );
 };
