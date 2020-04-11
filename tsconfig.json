@@ -3,6 +3,7 @@
     "outDir": "./src/main/resources/static/built/",
     "noImplicitAny": true,
     "module": "es6",
+    "moduleResolution": "node",
     "lib": ["dom", "es7"],
     "target": "es6",
     "jsx": "react",
@@ -10,5 +11,5 @@
     "sourceMap": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./node_modules/@react-google-maps/api/dist/index.d.ts"]
+  "include": ["./src/main/js/**/*"]
 }

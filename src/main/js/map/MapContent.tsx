@@ -1,28 +1,40 @@
 import React from "react";
 import { Marker, MarkerClusterer } from "@react-google-maps/api";
+import { Ship } from "../Ship.types";
+import { Clusterer } from "@react-google-maps/marker-clusterer";
 
 const options = {
   imagePath: "images/markerclusterer/m",
-  minimumClusterSize: 3
+  minimumClusterSize: 3,
 };
 
-export default ({ shipwrecks, favourites, handleMarkerClick }) => {
+interface Props {
+  shipwrecks: Ship[];
+  favourites: string[];
+  handleMarkerClick: (id: number) => void;
+}
+
+const MapContent: React.FC<Props> = ({
+  shipwrecks,
+  favourites,
+  handleMarkerClick,
+}) => {
   const defaultMarkerIcon = {
     path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
     scale: 5,
     strokeWeight: 1,
     fillColor: "white",
     fillOpacity: 1,
-    labelOrigin: new google.maps.Point(0, 2)
+    labelOrigin: new google.maps.Point(0, 2),
   };
   const favouriteMarkerIcon = {
     ...defaultMarkerIcon,
-    fillColor: "orange"
+    fillColor: "orange",
   };
 
   return (
     <MarkerClusterer options={options}>
-      {clusterer => {
+      {(clusterer: Clusterer) => {
         return shipwrecks.map((ship, index) => {
           const onClick = () => handleMarkerClick(ship.id);
           const icon = favourites.includes(ship.name)
@@ -45,3 +57,5 @@ export default ({ shipwrecks, favourites, handleMarkerClick }) => {
     </MarkerClusterer>
   );
 };
+
+export default MapContent;
