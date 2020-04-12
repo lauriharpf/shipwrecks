@@ -5,28 +5,30 @@ import { NONE } from "../app";
 
 interface Props {
   shipwrecks: Ship[];
-  selectedShipwreckId: number;
-  setSelectedShipwreckId: (id: number) => void;
+  selectedShipwreckName: string;
+  setSelectedShipwreckName: (name: string) => void;
 }
 
 interface Option {
-  value: number;
+  value: string;
   label: string;
 }
 
 const Navbar: React.FC<Props> = ({
   shipwrecks,
-  selectedShipwreckId,
-  setSelectedShipwreckId,
+  selectedShipwreckName,
+  setSelectedShipwreckName,
 }) => {
-  const options: Option[] = shipwrecks.map((ship: Ship, index: number) => ({
-    value: index,
+  const options: Option[] = shipwrecks.map((ship: Ship) => ({
+    value: ship.name,
     label: ship.name,
   }));
   const selectedOption =
-    selectedShipwreckId !== NONE ? options[selectedShipwreckId] : null;
+    selectedShipwreckName !== NONE
+      ? options.find((option) => option.value === selectedShipwreckName)
+      : null;
   const handleSelectionChange = (option: Option) =>
-    setSelectedShipwreckId(option.value);
+    setSelectedShipwreckName(option.value);
 
   return (
     <div className="navBarContainer">

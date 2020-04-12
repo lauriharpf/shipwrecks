@@ -36,3 +36,15 @@
   margin-left: auto;
   margin-top: 5px;
 }
+
+@media (max-width: 1024px) {
+  .navBarContainer .logo {
+    font-size: 12px;
+    padding-top: 17px;
+    padding-bottom: 17px;
+  }
+
+  .navBarContainer .github {
+    display: none;
+  }
+}

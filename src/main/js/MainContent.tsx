@@ -8,40 +8,36 @@ import { NONE } from "./app";
 
 interface Props {
   shipwrecks: Ship[];
-  selectedShipwreckId: number;
-  setSelectedShipwreckId: (id: number) => void;
+  selectedShipwreckName: string;
+  setSelectedShipwreckName: (id: string) => void;
 }
 
 const MainContent: React.FC<Props> = ({
   shipwrecks,
-  selectedShipwreckId,
-  setSelectedShipwreckId,
+  selectedShipwreckName,
+  setSelectedShipwreckName,
 }) => {
   const [favourites, setFavourites] = useState(favouriteStore.getAll());
 
-  const handleMarkerClick = (id: number) => setSelectedShipwreckId(id);
-  const handleCloseButtonClick = () => setSelectedShipwreckId(NONE);
+  const handleMarkerClick = (name: string) => setSelectedShipwreckName(name);
+  const handleCloseButtonClick = () => setSelectedShipwreckName(NONE);
 
   const handleFavouriteButtonClick = () => {
-    const shipwreckName = shipwrecks[selectedShipwreckId].name;
-    if (favouriteStore.has(shipwreckName)) {
-      favouriteStore.remove(shipwreckName);
+    if (favouriteStore.has(selectedShipwreckName)) {
+      favouriteStore.remove(selectedShipwreckName);
     } else {
-      favouriteStore.add(shipwreckName);
+      favouriteStore.add(selectedShipwreckName);
     }
 
     setFavourites(favouriteStore.getAll());
   };
 
-  const shipName =
-    selectedShipwreckId !== NONE ? shipwrecks[selectedShipwreckId].name : "";
-
   return (
     <>
-      {selectedShipwreckId !== NONE && (
+      {selectedShipwreckName !== NONE && (
         <ShipwreckDetails
-          shipName={shipName}
-          isFavourite={favourites.includes(shipName)}
+          shipName={selectedShipwreckName}
+          isFavourite={favourites.includes(selectedShipwreckName)}
           handleCloseButtonClick={handleCloseButtonClick}
           handleFavouriteButtonClick={handleFavouriteButtonClick}
         />
@@ -53,10 +49,11 @@ const MainContent: React.FC<Props> = ({
         <Map
           shipwrecks={shipwrecks}
           favourites={favourites}
-          isVisible={selectedShipwreckId === NONE}
+          isVisible={selectedShipwreckName === NONE}
           handleMarkerClick={handleMarkerClick}
         />
       </LoadScript>
+      )
     </>
   );
 };

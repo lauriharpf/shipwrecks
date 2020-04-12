@@ -7,7 +7,7 @@ interface Props {
   shipwrecks: Ship[];
   isVisible: boolean;
   favourites: string[];
-  handleMarkerClick: (id: number) => void;
+  handleMarkerClick: (name: string) => void;
 }
 
 const Map: React.FC<Props> = ({
@@ -38,11 +38,13 @@ const Map: React.FC<Props> = ({
       onLoad={onMapLoad}
       onCenterChanged={centerChanged}
     >
-      <MapContent
-        shipwrecks={shipwrecks}
-        favourites={favourites}
-        handleMarkerClick={handleMarkerClick}
-      />
+      {isVisible && (
+        <MapContent
+          shipwrecks={shipwrecks}
+          favourites={favourites}
+          handleMarkerClick={handleMarkerClick}
+        />
+      )}
     </GoogleMap>
   );
 };

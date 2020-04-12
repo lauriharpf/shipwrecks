@@ -7,19 +7,17 @@ import { Ship } from "./Ship.types";
 import "../resources/static/css/navigation.css";
 import "../resources/static/css/shipwrecks.css";
 
-export const NONE: number = -1;
+export const NONE: string = "";
 
 const App = () => {
   const [shipwrecks, setShipwrecks] = useState<Ship[]>([]);
-  const [selectedShipwreckId, setSelectedShipwreckId] = useState<number>(NONE);
+  const [selectedShipwreckName, setSelectedShipwreckName] = useState<string>(
+    NONE
+  );
 
   const fetchShipwrecks = async () => {
     const response = await api.getShipwrecks();
-    const data = response.map((ship: Ship, index: number) => ({
-      id: index,
-      ...ship,
-    }));
-    setShipwrecks(data);
+    setShipwrecks(response);
   };
 
   useEffect(() => {
@@ -30,13 +28,13 @@ const App = () => {
     <>
       <Navbar
         shipwrecks={shipwrecks}
-        selectedShipwreckId={selectedShipwreckId}
-        setSelectedShipwreckId={setSelectedShipwreckId}
+        selectedShipwreckName={selectedShipwreckName}
+        setSelectedShipwreckName={setSelectedShipwreckName}
       />
       <MainContent
         shipwrecks={shipwrecks}
-        selectedShipwreckId={selectedShipwreckId}
-        setSelectedShipwreckId={setSelectedShipwreckId}
+        selectedShipwreckName={selectedShipwreckName}
+        setSelectedShipwreckName={setSelectedShipwreckName}
       />
     </>
   );

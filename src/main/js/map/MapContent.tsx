@@ -11,7 +11,7 @@ const options = {
 interface Props {
   shipwrecks: Ship[];
   favourites: string[];
-  handleMarkerClick: (id: number) => void;
+  handleMarkerClick: (name: string) => void;
 }
 
 const MapContent: React.FC<Props> = ({
@@ -35,15 +35,15 @@ const MapContent: React.FC<Props> = ({
   return (
     <MarkerClusterer options={options}>
       {(clusterer: Clusterer) => {
-        return shipwrecks.map((ship, index) => {
-          const onClick = () => handleMarkerClick(ship.id);
+        return shipwrecks.map((ship) => {
+          const onClick = () => handleMarkerClick(ship.name);
           const icon = favourites.includes(ship.name)
             ? favouriteMarkerIcon
             : defaultMarkerIcon;
 
           return (
             <Marker
-              key={index}
+              key={ship.name}
               position={{ lat: ship.latitude, lng: ship.longitude }}
               clusterer={clusterer}
               label={{ text: ship.name, fontSize: "12px", fontWeight: "bold" }}
