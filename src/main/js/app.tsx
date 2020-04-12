@@ -15,7 +15,7 @@ const App = () => {
 
   const fetchShipwrecks = async () => {
     const response = await api.getShipwrecks();
-    const data = response.data.map((ship: Ship, index: number) => ({
+    const data = response.map((ship: Ship, index: number) => ({
       id: index,
       ...ship,
     }));
