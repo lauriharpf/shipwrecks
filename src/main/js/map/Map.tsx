@@ -16,18 +16,10 @@ const Map: React.FC<Props> = ({
   isVisible,
   handleMarkerClick,
 }) => {
-  const [center, setCenter] = useState({
+  const [center] = useState({
     lat: 43.13,
     lng: 27.55,
   });
-
-  let map: google.maps.Map;
-  const onMapLoad = (loadedMap: google.maps.Map) => {
-    map = loadedMap;
-  };
-  const centerChanged = () =>
-    map &&
-    setCenter({ lat: map.getCenter().lat(), lng: map.getCenter().lng() });
 
   return (
     <GoogleMap
@@ -35,8 +27,6 @@ const Map: React.FC<Props> = ({
       mapContainerClassName={isVisible ? "mainContent" : "hidden"}
       zoom={3}
       center={center}
-      onLoad={onMapLoad}
-      onCenterChanged={centerChanged}
     >
       {isVisible && (
         <MapContent

@@ -53,7 +53,6 @@ const MainContent: React.FC<Props> = ({
           handleMarkerClick={handleMarkerClick}
         />
       </LoadScript>
-      )
     </>
   );
 };
