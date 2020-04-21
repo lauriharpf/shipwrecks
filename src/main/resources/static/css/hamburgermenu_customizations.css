@@ -1,0 +1,14 @@
+#react .bm-burger-button {
+  height: 33px;
+  right: 9px;
+  top: 7px;
+  left: unset;
+}
+
+#react .bm-menu {
+  overflow: unset !important;
+}
+
+#react .bm-overlay {
+  left: 0;
+}

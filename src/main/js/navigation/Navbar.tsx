@@ -2,11 +2,14 @@ import React from "react";
 import Select from "react-select";
 import { Ship } from "../Ship.types";
 import { NONE } from "../app";
+import HamburgerMenu from "./HamburgerMenu";
 
 interface Props {
   shipwrecks: Ship[];
   selectedShipwreckName: string;
   setSelectedShipwreckName: (name: string) => void;
+  onlyShowStarred: boolean;
+  setOnlyShowStarred: (value: boolean) => void;
 }
 
 interface Option {
@@ -18,6 +21,8 @@ const Navbar: React.FC<Props> = ({
   shipwrecks,
   selectedShipwreckName,
   setSelectedShipwreckName,
+  onlyShowStarred,
+  setOnlyShowStarred,
 }) => {
   const options: Option[] = shipwrecks.map((ship: Ship) => ({
     value: ship.name,
@@ -45,6 +50,10 @@ const Navbar: React.FC<Props> = ({
         options={options}
         isSearchable={true}
         placeholder={"Search"}
+      />
+      <HamburgerMenu
+        onlyShowStarred={onlyShowStarred}
+        setOnlyShowStarred={setOnlyShowStarred}
       />
     </div>
   );
