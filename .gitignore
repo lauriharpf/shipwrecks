@@ -4,3 +4,4 @@ target
 node_modules
 src/main/resources/static/built/bundle.js
 src/main/resources/static/built/bundle.js.map
+coverage
