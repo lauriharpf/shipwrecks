@@ -30,7 +30,7 @@ describe("HamburgerMenu", () => {
 
     it("is checked when only starred ships are shown", () => {
       const result = renderMenu(true);
-      expect(getSwitch(result)).toBeChecked();
+      expect(getSwitch(result)).not.toBeChecked();
     });
   });
 });
