@@ -4,59 +4,61 @@ import api from "./api";
 import Navbar from "./navigation/Navbar";
 import MainContent from "./MainContent";
 import settingsStore from "./settingsStore";
-import favouriteStore from "./favouriteStore";
+import { useFavoriteStore } from "./store";
 import { Ship } from "./Ship.types";
 import "../resources/static/css/navigation.css";
 import "../resources/static/css/shipwrecks.css";
 import "../resources/static/css/hamburgermenu.css";
 import "../resources/static/css/hamburgermenu_customizations.css";
 
-export const NONE: string = "";
+const NONE: string = "";
 
 const App = () => {
-  const [shipwrecks, setShipwrecks] = useState<Ship[]>([]);
-  const [selectedShipwreckName, setSelectedShipwreckName] = useState<string>(
-    NONE
-  );
+  const [ships, setShips] = useState<Ship[]>([]);
+  const [selectedShipName, setSelectedShipName] = useState<string>(NONE);
   const [onlyShowStarred, setOnlyShowStarred] = useState(
     settingsStore.onlyShowStarred
   );
+  const [favorites, toggleFavorite] = useFavoriteStore();
 
   const handleSetOnlyStarred = (value: boolean) => {
     settingsStore.onlyShowStarred = value;
     setOnlyShowStarred(value);
   };
 
-  const fetchShipwrecks = async () => {
+  const fetchShips = async () => {
     const response = await api.getShipwrecks();
-    setShipwrecks(response);
+    setShips(response);
   };
 
   useEffect(() => {
-    fetchShipwrecks();
+    fetchShips();
   }, []);
 
+  const deselect = () => setSelectedShipName(NONE);
+  const shipsWithFavoriteData = ships.map((ship) => {
+    ship.favorite = favorites.includes(ship.name);
+    ship.toggleFavorite = () => toggleFavorite(ship.name);
+    ship.selected = ship.name === selectedShipName;
+    ship.select = () => setSelectedShipName(ship.name);
+    ship.deselect = deselect;
+    return ship;
+  });
+
   const filteredShips = onlyShowStarred
-    ? shipwrecks.filter(
-        (ship) =>
-          favouriteStore.has(ship.name) || ship.name === selectedShipwreckName
+    ? shipsWithFavoriteData.filter(
+        (ship) => ship.favorite || ship.name === selectedShipName
       )
-    : shipwrecks;
+    : shipsWithFavoriteData;
 
   return (
     <>
       <Navbar
-        shipwrecks={filteredShips}
+        ships={filteredShips}
         onlyShowStarred={onlyShowStarred}
         setOnlyShowStarred={handleSetOnlyStarred}
-        selectedShipwreckName={selectedShipwreckName}
-        setSelectedShipwreckName={setSelectedShipwreckName}
       />
-      <MainContent
-        shipwrecks={filteredShips}
-        selectedShipwreckName={selectedShipwreckName}
-        setSelectedShipwreckName={setSelectedShipwreckName}
-      />
+      <MainContent ships={filteredShips} />
     </>
   );
 };

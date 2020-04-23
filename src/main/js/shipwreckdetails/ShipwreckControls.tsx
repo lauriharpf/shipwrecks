@@ -1,22 +1,17 @@
 import React from "react";
+import { Ship } from "../Ship.types";
 
 interface Props {
-  handleCloseButtonClick: () => void;
-  isFavourite: boolean;
-  setFavourite: () => void;
+  ship: Ship;
 }
 
-const ShipwreckControls: React.FC<Props> = ({
-  handleCloseButtonClick,
-  isFavourite,
-  setFavourite,
-}) => (
+const ShipwreckControls: React.FC<Props> = ({ ship }) => (
   <div className="shipwreck-controls">
-    <button onClick={handleCloseButtonClick} className="closeButton">
+    <button onClick={ship.deselect} className="closeButton">
       <img src="/images/close.svg" />
     </button>
-    <button onClick={setFavourite}>
-      <img src={`/images/${isFavourite ? "yellow" : "black"}_star.svg`} />
+    <button onClick={ship.toggleFavorite}>
+      <img src={`/images/${ship.favorite ? "yellow" : "black"}_star.svg`} />
     </button>
   </div>
 );

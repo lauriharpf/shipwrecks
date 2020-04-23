@@ -4,18 +4,11 @@ import { Ship } from "../Ship.types";
 import MapContent from "./MapContent";
 
 interface Props {
-  shipwrecks: Ship[];
+  ships: Ship[];
   isVisible: boolean;
-  favourites: string[];
-  handleMarkerClick: (name: string) => void;
 }
 
-const Map: React.FC<Props> = ({
-  shipwrecks,
-  favourites,
-  isVisible,
-  handleMarkerClick,
-}) => {
+const Map: React.FC<Props> = ({ ships, isVisible }) => {
   const [center] = useState({
     lat: 43.13,
     lng: 27.55,
@@ -28,13 +21,7 @@ const Map: React.FC<Props> = ({
       zoom={3}
       center={center}
     >
-      {isVisible && (
-        <MapContent
-          shipwrecks={shipwrecks}
-          favourites={favourites}
-          handleMarkerClick={handleMarkerClick}
-        />
-      )}
+      {isVisible && <MapContent ships={ships} />}
     </GoogleMap>
   );
 };
