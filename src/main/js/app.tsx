@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import api from "./api";
 import Navbar from "./navigation/Navbar";
 import MainContent from "./MainContent";
-import settingsStore from "./settingsStore";
-import { useFavoriteStore } from "./store";
+import { useFavoriteStore, useOnlyShowStarredStore } from "./store";
 import { Ship } from "./Ship.types";
 import "../resources/static/css/navigation.css";
 import "../resources/static/css/shipwrecks.css";
@@ -16,39 +15,33 @@ const NONE: string = "";
 const App = () => {
   const [ships, setShips] = useState<Ship[]>([]);
   const [selectedShipName, setSelectedShipName] = useState<string>(NONE);
-  const [onlyShowStarred, setOnlyShowStarred] = useState(
-    settingsStore.onlyShowStarred
-  );
+  const [onlyShowStarred, setOnlyShowStarred] = useOnlyShowStarredStore();
   const [favorites, toggleFavorite] = useFavoriteStore();
-
-  const handleSetOnlyStarred = (value: boolean) => {
-    settingsStore.onlyShowStarred = value;
-    setOnlyShowStarred(value);
-  };
 
   const fetchShips = async () => {
     const response = await api.getShipwrecks();
-    setShips(response);
+    const deselect = () => setSelectedShipName(NONE);
+    const shipsFromResponse = response.map((ship) => ({
+      ...ship,
+      toggleFavorite: () => toggleFavorite(ship.name),
+      select: () => setSelectedShipName(ship.name),
+      deselect,
+    }));
+    setShips(shipsFromResponse);
   };
 
   useEffect(() => {
     fetchShips();
   }, []);
 
-  const deselect = () => setSelectedShipName(NONE);
-  const shipsWithFavoriteData = ships.map((ship) => {
-    ship.favorite = favorites.includes(ship.name);
-    ship.toggleFavorite = () => toggleFavorite(ship.name);
-    ship.selected = ship.name === selectedShipName;
-    ship.select = () => setSelectedShipName(ship.name);
-    ship.deselect = deselect;
-    return ship;
-  });
+  const shipsWithFavoriteData = ships.map((ship) => ({
+    ...ship,
+    favorite: favorites.includes(ship.name),
+    selected: ship.name === selectedShipName,
+  }));
 
   const filteredShips = onlyShowStarred
-    ? shipsWithFavoriteData.filter(
-        (ship) => ship.favorite || ship.name === selectedShipName
-      )
+    ? shipsWithFavoriteData.filter((ship) => ship.favorite || ship.selected)
     : shipsWithFavoriteData;
 
   return (
@@ -56,7 +49,7 @@ const App = () => {
       <Navbar
         ships={filteredShips}
         onlyShowStarred={onlyShowStarred}
-        setOnlyShowStarred={handleSetOnlyStarred}
+        setOnlyShowStarred={setOnlyShowStarred}
       />
       <MainContent ships={filteredShips} />
     </>
