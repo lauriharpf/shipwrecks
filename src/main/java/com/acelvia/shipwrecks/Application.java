@@ -10,6 +10,7 @@ import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -18,6 +19,7 @@ import java.util.Collections;
 @EnableAutoConfiguration
 @Configuration
 @EnableCaching
+@EnableAsync
 public class Application {
 
     public static void main(String[] args) {

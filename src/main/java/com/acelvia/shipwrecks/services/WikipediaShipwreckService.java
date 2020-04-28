@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class WikipediaShipwreckService implements ShipwreckService {
+public class WikipediaShipwreckService {
 
     private final HtmlFetcher htmlFetcher;
 
@@ -20,7 +20,6 @@ public class WikipediaShipwreckService implements ShipwreckService {
         this.htmlFetcher = htmlFetcher;
     }
 
-    @Override
     @Cacheable(value = "shipwrecks", unless = "#result.isEmpty()")
     public List<Shipwreck> getShipwrecks(Area area) {
         try {
