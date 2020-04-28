@@ -12,17 +12,14 @@ public enum Area {
     FLORIDA("List_of_shipwrecks_of_Florida"),
     PACIFIC_OCEAN("List_of_shipwrecks_in_the_Pacific_Ocean");
 
-    private static final String KMLEXPORT_URL_TEMPLATE =
-            "http://tools.wmflabs.org/kmlexport?article=%s";
     private final String pageName;
 
-    private Area(String pageName) {
+    Area(String pageName) {
         this.pageName = pageName;
     }
 
-    protected String getKmlURL() {
-        return String.format(KMLEXPORT_URL_TEMPLATE, pageName);
+    protected String getPageName() {
+        return pageName;
     }
-
 
 }

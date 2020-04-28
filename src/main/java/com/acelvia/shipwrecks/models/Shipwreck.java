@@ -1,14 +1,19 @@
 package com.acelvia.shipwrecks.models;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class Shipwreck {
     private final String name;
     private final float latitude;
     private final float longitude;
+    private final LocalDate sunkDate;
 
-    public Shipwreck(String name, float latitude, float longitude) {
+    public Shipwreck(String name, float latitude, float longitude, LocalDate sunkDate) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.sunkDate = sunkDate;
     }
 
     @SuppressWarnings("unused")
@@ -26,25 +31,24 @@ public class Shipwreck {
         return name;
     }
 
+    @SuppressWarnings("unused")
+    public LocalDate getSunkDate() {
+        return sunkDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Shipwreck shipwreck = (Shipwreck) o;
-
-        if (Float.compare(shipwreck.latitude, latitude) != 0) return false;
-        if (Float.compare(shipwreck.longitude, longitude) != 0) return false;
-        if (!name.equals(shipwreck.name)) return false;
-
-        return true;
+        return Float.compare(shipwreck.latitude, latitude) == 0 &&
+                Float.compare(shipwreck.longitude, longitude) == 0 &&
+                name.equals(shipwreck.name) &&
+                Objects.equals(sunkDate, shipwreck.sunkDate);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (latitude != +0.0f ? Float.floatToIntBits(latitude) : 0);
-        result = 31 * result + (longitude != +0.0f ? Float.floatToIntBits(longitude) : 0);
-        return result;
+        return Objects.hash(name, latitude, longitude, sunkDate);
     }
 }
