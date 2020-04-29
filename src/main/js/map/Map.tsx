@@ -17,11 +17,12 @@ const Map: React.FC<Props> = ({ ships, isVisible }) => {
   return (
     <GoogleMap
       id="shipwreck-map"
-      mapContainerClassName={isVisible ? "mainContent" : "hidden"}
+      mapContainerClassName="mainContent"
+      mapContainerStyle={isVisible ? undefined : { display: "none" }}
       zoom={3}
       center={center}
     >
-      {isVisible && <MapContent ships={ships} />}
+      <MapContent ships={ships} />
     </GoogleMap>
   );
 };

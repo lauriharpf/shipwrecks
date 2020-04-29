@@ -1,7 +1,8 @@
 import React from "react";
-import { Marker, MarkerClusterer } from "@react-google-maps/api";
-import { Ship } from "../Ship.types";
+import { MarkerClusterer } from "@react-google-maps/api";
 import { Clusterer } from "@react-google-maps/marker-clusterer";
+import { Ship } from "../Ship.types";
+import MemoMarker from "./MemoMarker";
 const options = {
   imagePath: "images/markerclusterer/m",
   minimumClusterSize: 3,
@@ -9,13 +10,6 @@ const options = {
 
 interface Props {
   ships: Ship[];
-}
-
-interface MarkerClickEvent {
-  latLng: {
-    lat: () => number;
-    lng: () => number;
-  };
 }
 
 const MapContent: React.FC<Props> = ({ ships }) => {
@@ -32,7 +26,7 @@ const MapContent: React.FC<Props> = ({ ships }) => {
     fillColor: "orange",
   };
 
-  const onClick = ({ latLng: { lat, lng } }: MarkerClickEvent) => {
+  const onClick = ({ latLng: { lat, lng } }: google.maps.MouseEvent) => {
     const clickedShip = ships.find(
       (ship) => ship.latitude === lat() && ship.longitude === lng()
     );
@@ -41,7 +35,6 @@ const MapContent: React.FC<Props> = ({ ships }) => {
   };
 
   const isLast = (index: number) => index === ships.length - 1;
-
   return (
     <MarkerClusterer options={options}>
       {(clusterer: Clusterer) => {
@@ -49,12 +42,11 @@ const MapContent: React.FC<Props> = ({ ships }) => {
           const icon = ship.favorite ? favouriteMarkerIcon : defaultMarkerIcon;
 
           return (
-            <Marker
+            <MemoMarker
               key={ship.name}
+              name={ship.name}
               position={{ lat: ship.latitude, lng: ship.longitude }}
               clusterer={clusterer}
-              label={{ text: ship.name, fontSize: "12px", fontWeight: "bold" }}
-              title={ship.name}
               icon={icon}
               noClustererRedraw={!isLast(index)}
               onClick={onClick}

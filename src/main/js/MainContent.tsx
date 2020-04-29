@@ -13,7 +13,7 @@ const MainContent: React.FC<Props> = ({ ships }) => {
 
   return (
     <>
-      {selectedShip && <ShipwreckDetails ship={selectedShip} />}
+      <ShipwreckDetails ship={selectedShip} />
       <LoadScript
         id="script-loader"
         googleMapsApiKey="AIzaSyDWOU36_aLESVSSCFsrk4WdH9Q1mXdamgo"
