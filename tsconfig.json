@@ -9,7 +9,8 @@
     "jsx": "react",
     "allowJs": true,
     "sourceMap": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true
   },
   "include": ["./src/main/js/**/*"]
 }

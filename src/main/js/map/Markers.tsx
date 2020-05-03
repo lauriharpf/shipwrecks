@@ -30,7 +30,9 @@ const Markers: React.FC<Props> = ({ ships, clusterer }) => {
       (ship) => ship.latitude === lat() && ship.longitude === lng()
     );
 
-    clickedShip.select();
+    if (clickedShip) {
+      clickedShip.select();
+    }
   };
 
   const isLast = (index: number) => index === ships.length - 1;

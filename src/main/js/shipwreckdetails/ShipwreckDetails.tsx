@@ -3,10 +3,10 @@ import { Ship } from "../models/";
 import ShipwreckControls from "./ShipwreckControls";
 
 interface Props {
-  ship: Ship;
+  ship: Ship | undefined;
 }
 
-const getWikipediaUrl = (ship: Ship) => {
+const getWikipediaUrl = (ship: Ship | undefined) => {
   if (!ship) {
     return undefined;
   }

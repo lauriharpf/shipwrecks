@@ -14,7 +14,8 @@ class Era extends EraOption {
 
   wasSunkDuring(ship: Ship): boolean {
     return (
-      ship.sunkDate && ship.sunkDate.isBetween(this.start, this.end, null, "[]")
+      !!ship.sunkDate &&
+      ship.sunkDate.isBetween(this.start, this.end, null, "[]")
     );
   }
 }
