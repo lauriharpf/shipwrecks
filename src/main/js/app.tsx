@@ -52,13 +52,7 @@ const App = () => {
 
   return (
     <>
-      <Navbar
-        ships={filteredShips}
-        onlyShowStarred={settings.onlyShowStarred}
-        setOnlyShowStarred={settings.setOnlyShowStarred}
-        erasToFilterBy={settings.eras}
-        setErasToFilterBy={settings.setEras}
-      />
+      <Navbar ships={filteredShips} settings={settings} />
       <MainContent ships={filteredShips} />
     </>
   );

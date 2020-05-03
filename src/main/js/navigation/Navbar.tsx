@@ -1,14 +1,11 @@
 import React from "react";
 import Select from "react-select";
-import { Ship, EraOption } from "../models/";
+import { Ship, Settings } from "../models/";
 import HamburgerMenu from "./HamburgerMenu";
 
 interface Props {
   ships: Ship[];
-  onlyShowStarred: boolean;
-  setOnlyShowStarred: (value: boolean) => void;
-  erasToFilterBy: EraOption[];
-  setErasToFilterBy: (value: EraOption[]) => void;
+  settings: Settings;
 }
 
 interface Option {
@@ -16,13 +13,7 @@ interface Option {
   label: string;
 }
 
-const Navbar: React.FC<Props> = ({
-  ships,
-  onlyShowStarred,
-  setOnlyShowStarred,
-  erasToFilterBy,
-  setErasToFilterBy,
-}) => {
+const Navbar: React.FC<Props> = ({ ships, settings }) => {
   const options: Option[] = ships.map((ship: Ship) => ({
     value: ship,
     label: ship.name,
@@ -48,12 +39,7 @@ const Navbar: React.FC<Props> = ({
         isSearchable={true}
         placeholder={"Search"}
       />
-      <HamburgerMenu
-        onlyShowStarred={onlyShowStarred}
-        setOnlyShowStarred={setOnlyShowStarred}
-        erasToFilterBy={erasToFilterBy}
-        setErasToFilterBy={setErasToFilterBy}
-      />
+      <HamburgerMenu settings={settings} />
     </div>
   );
 };

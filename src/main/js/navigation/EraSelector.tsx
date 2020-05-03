@@ -5,21 +5,18 @@ import { allEras } from "../store";
 import { EraOption } from "../models/";
 
 interface Props {
-  erasToFilterBy: EraOption[];
-  setErasToFilterBy: (value: EraOption[]) => void;
+  eras: EraOption[];
+  setEras: (value: EraOption[]) => void;
 }
 
-const EraSelector: React.FC<Props> = ({
-  erasToFilterBy,
-  setErasToFilterBy,
-}) => {
+const EraSelector: React.FC<Props> = ({ eras, setEras }) => {
   return (
     <Autocomplete
       multiple
       options={allEras}
-      value={erasToFilterBy}
+      value={eras}
       onChange={(event, newValues) => {
-        setErasToFilterBy(newValues);
+        setEras(newValues);
       }}
       getOptionLabel={(option) => option.label}
       renderInput={(params) => (

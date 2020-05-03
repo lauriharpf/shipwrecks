@@ -2,28 +2,18 @@ import React from "react";
 import { slide as Menu } from "react-burger-menu";
 import { FormControlLabel, Switch, Typography } from "@material-ui/core";
 import EraSelector from "./EraSelector";
-import { EraOption } from "../models/";
+import { Settings } from "../models/";
 
-interface Props {
-  onlyShowStarred: boolean;
-  setOnlyShowStarred: (value: boolean) => void;
-  erasToFilterBy: EraOption[];
-  setErasToFilterBy: (value: EraOption[]) => void;
-}
-
-const HamburgerMenu: React.FC<Props> = ({
-  onlyShowStarred,
-  setOnlyShowStarred,
-  erasToFilterBy,
-  setErasToFilterBy,
-}) => (
+const HamburgerMenu: React.FC<{ settings: Settings }> = ({ settings }) => (
   <Menu right disableAutoFocus>
     <FormControlLabel
       control={
         <Switch
           color="secondary"
-          checked={onlyShowStarred}
-          onChange={(event) => setOnlyShowStarred(event.target.checked)}
+          checked={settings.onlyShowStarred}
+          onChange={(event) =>
+            settings.setOnlyShowStarred(event.target.checked)
+          }
         />
       }
       label={
@@ -32,10 +22,7 @@ const HamburgerMenu: React.FC<Props> = ({
         </Typography>
       }
     />
-    <EraSelector
-      erasToFilterBy={erasToFilterBy}
-      setErasToFilterBy={setErasToFilterBy}
-    />
+    <EraSelector eras={settings.eras} setEras={settings.setEras} />
   </Menu>
 );
 

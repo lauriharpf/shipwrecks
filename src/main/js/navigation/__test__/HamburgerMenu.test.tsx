@@ -9,10 +9,12 @@ describe("HamburgerMenu", () => {
   const renderMenu = (onlyShowStarred: boolean) =>
     render(
       <HamburgerMenu
-        onlyShowStarred={onlyShowStarred}
-        setOnlyShowStarred={() => void false}
-        erasToFilterBy={[]}
-        setErasToFilterBy={() => void false}
+        settings={{
+          onlyShowStarred,
+          setOnlyShowStarred: () => void false,
+          eras: [],
+          setEras: () => void false,
+        }}
       />
     );
 
