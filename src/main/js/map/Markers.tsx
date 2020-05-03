@@ -1,34 +1,14 @@
 import React, { useEffect } from "react";
-import { MarkerClusterer } from "@react-google-maps/api";
 import { Clusterer } from "@react-google-maps/marker-clusterer";
-import { Ship } from "../models/";
+import { Ship } from "../models";
 import MemoMarker from "./MemoMarker";
-const options = {
-  imagePath: "images/markerclusterer/m",
-  minimumClusterSize: 3,
-};
 
 interface Props {
   ships: Ship[];
+  clusterer: Clusterer;
 }
 
-const MapContent: React.FC<Props> = ({ ships }) => {
-  return (
-    <MarkerClusterer options={options}>
-      {(clusterer: Clusterer) => (
-        <Markers ships={ships} clusterer={clusterer} />
-      )}
-    </MarkerClusterer>
-  );
-};
-
-const Markers = ({
-  ships,
-  clusterer,
-}: {
-  ships: Ship[];
-  clusterer: Clusterer;
-}) => {
+const Markers: React.FC<Props> = ({ ships, clusterer }) => {
   useEffect(() => {
     clusterer.repaint();
   });
@@ -75,4 +55,4 @@ const Markers = ({
   );
 };
 
-export default MapContent;
+export default Markers;
