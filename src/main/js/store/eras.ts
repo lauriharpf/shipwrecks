@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { Era, EraOption } from "../Ship.types";
+import { Era, EraOption } from "../models/";
 
 const startOfJSTime = dayjs(new Date(-8640000000000000));
 

@@ -2,7 +2,7 @@ import React from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { TextField, Typography } from "@material-ui/core";
 import { allEras } from "../store";
-import { EraOption } from "../Ship.types";
+import { EraOption } from "../models/";
 
 interface Props {
   erasToFilterBy: EraOption[];

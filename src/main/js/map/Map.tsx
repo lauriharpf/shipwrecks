@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GoogleMap } from "@react-google-maps/api";
-import { Ship } from "../Ship.types";
+import { Ship } from "../models/";
 import MapContent from "./MapContent";
 
 interface Props {

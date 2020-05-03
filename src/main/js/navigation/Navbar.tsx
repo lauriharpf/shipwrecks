@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import { Ship, EraOption } from "../Ship.types";
+import { Ship, EraOption } from "../models/";
 import HamburgerMenu from "./HamburgerMenu";
 
 interface Props {

@@ -8,7 +8,7 @@ import api from "./api";
 import Navbar from "./navigation/Navbar";
 import MainContent from "./MainContent";
 import { useFavoriteStore, useSettingsStore } from "./store";
-import { Ship, EraOption } from "./Ship.types";
+import { filterShips, Ship } from "./models/";
 import "../resources/static/css/navigation.css";
 import "../resources/static/css/shipwrecks.css";
 import "../resources/static/css/hamburgermenu.css";
@@ -16,25 +16,10 @@ import "../resources/static/css/hamburgermenu_customizations.css";
 
 const NONE: string = "";
 
-const filterShips = (
-  ships: Ship[],
-  onlyShowStarred: boolean,
-  erasToFilterBy: EraOption[]
-) => {
-  const afterStarredFiltering = onlyShowStarred
-    ? ships.filter((ship) => ship.favorite || ship.selected)
-    : ships;
-  return erasToFilterBy.length > 0
-    ? afterStarredFiltering.filter((ship) =>
-        erasToFilterBy.some((era) => era.wasSunkDuring(ship))
-      )
-    : afterStarredFiltering;
-};
-
 const App = () => {
   const [ships, setShips] = useState<Ship[]>([]);
   const [selectedShipName, setSelectedShipName] = useState<string>(NONE);
-  const [settingValues, settingMutators] = useSettingsStore();
+  const settings = useSettingsStore();
   const [favorites, toggleFavorite] = useFavoriteStore();
 
   const fetchShips = async () => {
@@ -61,18 +46,18 @@ const App = () => {
   }));
   const filteredShips = filterShips(
     shipsWithFavoriteData,
-    settingValues.onlyShowStarred,
-    settingValues.eras
+    settings.onlyShowStarred,
+    settings.eras
   );
 
   return (
     <>
       <Navbar
         ships={filteredShips}
-        onlyShowStarred={settingValues.onlyShowStarred}
-        setOnlyShowStarred={settingMutators.setOnlyShowStarred}
-        erasToFilterBy={settingValues.eras}
-        setErasToFilterBy={settingMutators.setEras}
+        onlyShowStarred={settings.onlyShowStarred}
+        setOnlyShowStarred={settings.setOnlyShowStarred}
+        erasToFilterBy={settings.eras}
+        setErasToFilterBy={settings.setEras}
       />
       <MainContent ships={filteredShips} />
     </>

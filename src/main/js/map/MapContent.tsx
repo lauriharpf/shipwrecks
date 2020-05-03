@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { MarkerClusterer } from "@react-google-maps/api";
 import { Clusterer } from "@react-google-maps/marker-clusterer";
-import { Ship } from "../Ship.types";
+import { Ship } from "../models/";
 import MemoMarker from "./MemoMarker";
 const options = {
   imagePath: "images/markerclusterer/m",

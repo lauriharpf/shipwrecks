@@ -1,5 +1,5 @@
 import React from "react";
-import { Ship } from "../Ship.types";
+import { Ship } from "../models/";
 
 interface Props {
   ship: Ship;

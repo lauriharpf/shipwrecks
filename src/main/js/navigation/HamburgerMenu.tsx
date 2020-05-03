@@ -2,7 +2,7 @@ import React from "react";
 import { slide as Menu } from "react-burger-menu";
 import { FormControlLabel, Switch, Typography } from "@material-ui/core";
 import EraSelector from "./EraSelector";
-import { EraOption } from "../Ship.types";
+import { EraOption } from "../models/";
 
 interface Props {
   onlyShowStarred: boolean;
