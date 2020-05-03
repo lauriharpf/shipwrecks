@@ -11,4 +11,13 @@ export default {
   set onlyShowStarred(value: boolean) {
     settings.set("onlyShowStarred", value);
   },
+
+  get filters(): string[] {
+    const value = settings.get("filters");
+    return value || [];
+  },
+
+  set filters(value: string[]) {
+    settings.set("filters", value);
+  },
 };

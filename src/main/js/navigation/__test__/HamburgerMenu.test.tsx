@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  cleanup,
-  render,
-  GetByText,
-  RenderResult,
-} from "@testing-library/react";
+import { cleanup, render, RenderResult } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import HamburgerMenu from "../HamburgerMenu";
 
@@ -16,6 +11,8 @@ describe("HamburgerMenu", () => {
       <HamburgerMenu
         onlyShowStarred={onlyShowStarred}
         setOnlyShowStarred={() => void false}
+        erasToFilterBy={[]}
+        setErasToFilterBy={() => void false}
       />
     );
 

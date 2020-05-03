@@ -1,12 +1,14 @@
 import React from "react";
 import Select from "react-select";
-import { Ship } from "../Ship.types";
+import { Ship, EraOption } from "../Ship.types";
 import HamburgerMenu from "./HamburgerMenu";
 
 interface Props {
   ships: Ship[];
   onlyShowStarred: boolean;
   setOnlyShowStarred: (value: boolean) => void;
+  erasToFilterBy: EraOption[];
+  setErasToFilterBy: (value: EraOption[]) => void;
 }
 
 interface Option {
@@ -18,6 +20,8 @@ const Navbar: React.FC<Props> = ({
   ships,
   onlyShowStarred,
   setOnlyShowStarred,
+  erasToFilterBy,
+  setErasToFilterBy,
 }) => {
   const options: Option[] = ships.map((ship: Ship) => ({
     value: ship,
@@ -47,6 +51,8 @@ const Navbar: React.FC<Props> = ({
       <HamburgerMenu
         onlyShowStarred={onlyShowStarred}
         setOnlyShowStarred={setOnlyShowStarred}
+        erasToFilterBy={erasToFilterBy}
+        setErasToFilterBy={setErasToFilterBy}
       />
     </div>
   );
