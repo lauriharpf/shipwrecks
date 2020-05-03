@@ -32,10 +32,11 @@ const SimpleMarker: React.FC<Props> = ({
 );
 
 const areMarkersEqual = (prevProps: Props, nextProps: Props) =>
+  prevProps.name === nextProps.name &&
   prevProps.position.lat === nextProps.position.lat &&
   prevProps.position.lng === nextProps.position.lng &&
-  prevProps.name === nextProps.name &&
-  prevProps.icon.fillColor === nextProps.icon.fillColor;
+  prevProps.icon.fillColor === nextProps.icon.fillColor &&
+  prevProps.noClustererRedraw === nextProps.noClustererRedraw;
 
 const MarkerMemo = React.memo(SimpleMarker, areMarkersEqual);
 

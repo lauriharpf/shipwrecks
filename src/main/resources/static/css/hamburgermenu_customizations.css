@@ -12,3 +12,12 @@
 #react .bm-overlay {
   left: 0;
 }
+
+#react .bm-item-list {
+  padding: 0;
+}
+
+#react .bm-item-list > div,
+#react .bm-item-list > label {
+  padding-bottom: 10px;
+}

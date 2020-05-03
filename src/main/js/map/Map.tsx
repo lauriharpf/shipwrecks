@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { GoogleMap } from "@react-google-maps/api";
-import { Ship } from "../Ship.types";
-import MapContent from "./MapContent";
+import { GoogleMap, MarkerClusterer } from "@react-google-maps/api";
+import { Clusterer } from "@react-google-maps/marker-clusterer";
+import { Ship } from "../models/";
+import Markers from "./Markers";
+
+const options = {
+  imagePath: "images/markerclusterer/m",
+  minimumClusterSize: 3,
+};
 
 interface Props {
   ships: Ship[];
@@ -22,7 +28,11 @@ const Map: React.FC<Props> = ({ ships, isVisible }) => {
       zoom={3}
       center={center}
     >
-      <MapContent ships={ships} />
+      <MarkerClusterer options={options}>
+        {(clusterer: Clusterer) => (
+          <Markers ships={ships} clusterer={clusterer} />
+        )}
+      </MarkerClusterer>
     </GoogleMap>
   );
 };

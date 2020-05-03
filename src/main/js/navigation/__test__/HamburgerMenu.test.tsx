@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  cleanup,
-  render,
-  GetByText,
-  RenderResult,
-} from "@testing-library/react";
+import { cleanup, render, RenderResult } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import HamburgerMenu from "../HamburgerMenu";
 
@@ -14,8 +9,12 @@ describe("HamburgerMenu", () => {
   const renderMenu = (onlyShowStarred: boolean) =>
     render(
       <HamburgerMenu
-        onlyShowStarred={onlyShowStarred}
-        setOnlyShowStarred={() => void false}
+        settings={{
+          onlyShowStarred,
+          setOnlyShowStarred: () => void false,
+          eras: [],
+          setEras: () => void false,
+        }}
       />
     );
 

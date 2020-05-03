@@ -1,58 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import api from "./api";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import grey from "@material-ui/core/colors/grey";
+import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
 import Navbar from "./navigation/Navbar";
 import MainContent from "./MainContent";
-import { useFavoriteStore, useOnlyShowStarredStore } from "./store";
-import { Ship } from "./Ship.types";
+import { useSettingsStore } from "./store";
+import { filterShips } from "./models/";
+import useShips from "./useShips";
 import "../resources/static/css/navigation.css";
 import "../resources/static/css/shipwrecks.css";
 import "../resources/static/css/hamburgermenu.css";
 import "../resources/static/css/hamburgermenu_customizations.css";
 
-const NONE: string = "";
+dayjs.extend(isBetween);
+const darkTheme = createMuiTheme({
+  palette: {
+    type: "dark",
+    primary: grey,
+  },
+});
 
 const App = () => {
-  const [ships, setShips] = useState<Ship[]>([]);
-  const [selectedShipName, setSelectedShipName] = useState<string>(NONE);
-  const [onlyShowStarred, setOnlyShowStarred] = useOnlyShowStarredStore();
-  const [favorites, toggleFavorite] = useFavoriteStore();
+  const ships = useShips();
+  const settings = useSettingsStore();
 
-  const fetchShips = async () => {
-    const response = await api.getShipwrecks();
-    const deselect = () => setSelectedShipName(NONE);
-    const shipsFromResponse = response.map((ship) => ({
-      ...ship,
-      toggleFavorite: () => toggleFavorite(ship.name),
-      select: () => setSelectedShipName(ship.name),
-      deselect,
-    }));
-    setShips(shipsFromResponse);
-  };
-
-  useEffect(() => {
-    fetchShips();
-  }, []);
-
-  const shipsWithFavoriteData = ships.map((ship) => ({
-    ...ship,
-    favorite: favorites.includes(ship.name),
-    selected: ship.name === selectedShipName,
-  }));
-
-  const filteredShips = onlyShowStarred
-    ? shipsWithFavoriteData.filter((ship) => ship.favorite || ship.selected)
-    : shipsWithFavoriteData;
+  const filteredShips = filterShips(
+    ships,
+    settings.onlyShowStarred,
+    settings.eras
+  );
 
   return (
     <>
-      <Navbar
-        ships={filteredShips}
-        onlyShowStarred={onlyShowStarred}
-        setOnlyShowStarred={setOnlyShowStarred}
-      />
+      <Navbar ships={filteredShips} settings={settings} />
       <MainContent ships={filteredShips} />
     </>
   );
 };
-ReactDOM.render(<App />, document.getElementById("react"));
+
+ReactDOM.render(
+  <ThemeProvider theme={darkTheme}>
+    <App />
+  </ThemeProvider>,
+  document.getElementById("react")
+);

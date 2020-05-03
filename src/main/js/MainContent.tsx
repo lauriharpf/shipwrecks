@@ -1,6 +1,6 @@
 import React from "react";
 import { LoadScript } from "@react-google-maps/api";
-import { Ship } from "./Ship.types";
+import { Ship } from "./models/";
 import Map from "./map/Map";
 import ShipwreckDetails from "./shipwreckdetails/ShipwreckDetails";
 
