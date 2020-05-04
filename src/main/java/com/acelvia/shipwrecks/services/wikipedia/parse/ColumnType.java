@@ -1,4 +1,4 @@
-package com.acelvia.shipwrecks.services.wikipedia;
+package com.acelvia.shipwrecks.services.wikipedia.parse;
 
 import java.util.Arrays;
 import java.util.List;

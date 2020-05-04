@@ -1,23 +1,33 @@
 package com.acelvia.shipwrecks.services;
 
 import com.acelvia.shipwrecks.models.Shipwreck;
-import org.springframework.scheduling.annotation.Async;
+import com.acelvia.shipwrecks.services.wikipedia.AsyncCachingShipwreckFetcher;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 public class ShipwreckService {
+    private final AsyncCachingShipwreckFetcher shipwreckFetcher;
 
-    private final WikipediaShipwreckService wikipediaShipwreckService;
-
-    public ShipwreckService(WikipediaShipwreckService wikipediaShipwreckService) {
-        this.wikipediaShipwreckService = wikipediaShipwreckService;
+    public ShipwreckService(AsyncCachingShipwreckFetcher shipwreckFetcher) {
+        this.shipwreckFetcher = shipwreckFetcher;
     }
 
-    @Async
-    public CompletableFuture<List<Shipwreck>> getShipwrecks(Area area) {
-        return CompletableFuture.completedFuture(wikipediaShipwreckService.getShipwrecks(area));
+    public List<Shipwreck> getAll() {
+        List<CompletableFuture<List<Shipwreck>>> promises =
+                Arrays.stream(Area.values()).
+                        map(shipwreckFetcher::getShipwrecks)
+                        .collect(Collectors.toList());
+
+        Set<Shipwreck> allShipwrecks = promises.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Shipwreck::getName))));
+
+        return List.copyOf(allShipwrecks);
     }
+
 }

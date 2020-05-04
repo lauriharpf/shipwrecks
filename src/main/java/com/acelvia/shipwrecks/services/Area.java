@@ -31,7 +31,7 @@ public enum Area {
         this.pageName = pageName;
     }
 
-    protected String getPageName() {
+    public String getPageName() {
         return pageName;
     }
 

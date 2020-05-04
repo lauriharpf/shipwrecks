@@ -1,4 +1,4 @@
-package com.acelvia.shipwrecks.services.wikipedia;
+package com.acelvia.shipwrecks.services.wikipedia.parse;
 
 import com.acelvia.shipwrecks.models.Coordinates;
 import com.acelvia.shipwrecks.models.Shipwreck;
@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Locale;
 
-import static com.acelvia.shipwrecks.services.wikipedia.ColumnType.*;
+import static com.acelvia.shipwrecks.services.wikipedia.parse.ColumnType.*;
 
 public class Row {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.US);

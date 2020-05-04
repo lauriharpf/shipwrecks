@@ -1,22 +1,23 @@
-package com.acelvia.shipwrecks.services;
+package com.acelvia.shipwrecks.services.wikipedia;
 
 import com.acelvia.shipwrecks.components.HtmlFetcher;
 import com.acelvia.shipwrecks.models.Shipwreck;
-import com.acelvia.shipwrecks.services.wikipedia.ShipwreckParser;
+import com.acelvia.shipwrecks.services.Area;
+import com.acelvia.shipwrecks.services.wikipedia.parse.ShipwreckParser;
 import org.jsoup.nodes.Document;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-@Service
-public class WikipediaShipwreckService {
+@Component
+public class CachingShipwreckFetcher {
 
     private final HtmlFetcher htmlFetcher;
 
-    public WikipediaShipwreckService(HtmlFetcher htmlFetcher) {
+    public CachingShipwreckFetcher(HtmlFetcher htmlFetcher) {
         this.htmlFetcher = htmlFetcher;
     }
 

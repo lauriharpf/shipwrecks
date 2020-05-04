@@ -1,6 +1,7 @@
 package com.acelvia.shipwrecks.services.wikipedia;
 
 import com.acelvia.shipwrecks.models.Shipwreck;
+import com.acelvia.shipwrecks.services.wikipedia.parse.ShipwreckParser;
 import com.acelvia.shipwrecks.testdata.Shipwrecks;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -1,4 +1,4 @@
-package com.acelvia.shipwrecks.services.wikipedia;
+package com.acelvia.shipwrecks.services.wikipedia.parse;
 
 import org.jsoup.nodes.Element;
 

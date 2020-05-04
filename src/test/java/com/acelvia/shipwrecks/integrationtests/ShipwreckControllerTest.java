@@ -1,6 +1,7 @@
 package com.acelvia.shipwrecks.integrationtests;
 
 import com.acelvia.shipwrecks.Application;
+import com.acelvia.shipwrecks.components.CacheInitializer;
 import com.acelvia.shipwrecks.components.HtmlFetcher;
 import com.acelvia.shipwrecks.testdata.Shipwrecks;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,9 @@ public class ShipwreckControllerTest {
 
     @MockBean
     private HtmlFetcher htmlFetcher;
+
+    @MockBean
+    private CacheInitializer cacheInitializer;
 
     @BeforeEach
     void beforeEach() throws Exception {
