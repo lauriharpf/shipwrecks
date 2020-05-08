@@ -35,3 +35,9 @@ body {
 .shipwreck-controls .closeButton img {
   width: 32px;
 }
+
+#shipwreck-map .gm-style > div:first-child > div div {
+  line-height: 11.5;
+  font-weight: bold;
+  font-size: 12px !important;
+}
